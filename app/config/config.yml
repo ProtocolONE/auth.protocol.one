@@ -1,0 +1,143 @@
+imports:
+- { resource: listeners.yml }
+- { resource: parameters.yml }
+- { resource: security.yml }
+- { resource: services.yml }
+- { resource: validators.yml }
+
+framework:
+  secret: "%default_secret%"
+  translator: { fallbacks: ["%default_locale%"] }
+  templating:
+    engines: ['twig']
+  validation: { enable_annotations: true }
+  serializer: { enable_annotations: true }
+  csrf_protection: false
+  session:
+    handler_id:  ~
+    cookie_lifetime: 43200
+  form: ~
+  test: ~
+
+twig:
+  debug: "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
+
+monolog:
+  handlers:
+    main:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: debug
+
+swiftmailer:
+  transport: "%mailer.transport%"
+  host: "%mailer.host%"
+  port: "%mailer.port%"
+  sender_address: "%mailer.sender.address%"
+
+doctrine_mongodb:
+  connections:
+    default:
+      server: "%mongodb_server%"
+      options: {}
+  default_database: "%mongodb_database%"
+  document_managers:
+    default:
+      mappings:
+        App:
+          type: annotation
+          dir: "%kernel.root_dir%/../src/Core/Document/"
+          prefix: Core\Document
+          alias: Core
+
+doctrine_migrations:
+  dir_name: "%kernel.root_dir%/DoctrineMigrations"
+  namespace: Application\Migrations
+  table_name: migration_versions
+  name: Application Migrations
+  organize_migrations: false
+
+fos_user:
+  db_driver: mongodb
+  firewall_name: "secured_area"
+  user_class: Core\Document\User
+  from_email:
+    address: "%mailer.sender.address%"
+    sender_name: "%mailer.sender.name%"
+  service:
+    user_manager: core.user_manager
+
+fos_oauth_server:
+  db_driver: mongodb
+  client_class: Core\Document\OAuth2Client
+  access_token_class: Core\Document\OAuth2AccessToken
+  refresh_token_class: Core\Document\OAuth2RefreshToken
+  auth_code_class: Core\Document\OAuth2Code
+  service:
+    user_provider: core.user_provider
+    options:
+      supported_scopes: profile email
+
+hwi_oauth:
+  connect:
+    confirmation: false
+    account_connector: core.user_provider
+  firewall_names: ["secured_area"]
+  target_path_parameter: _destination
+  fosub:
+    username_iterations: 30
+    properties:
+      facebook: "facebookUid"
+      twitter: "twitterUid"
+      vkontakte: "vkontakteUid"
+      odnoklassniki: "odnoklassnikiUid"
+  resource_owners:
+    facebook:
+      type: facebook
+      client_id: "%facebook.app_id%"
+      client_secret: "%facebook.app_secret%"
+      scope: "email,user_link"
+      options:
+        display: popup
+        auth_type: rerequest
+    vkontakte:
+      type: vkontakte
+      client_id: "%vkontakte.app_id%"
+      client_secret: "%vkontakte.app_secret%"
+      scope: "email"
+    odnoklassniki:
+      type: odnoklassniki
+      client_id: "%odnoklassniki.app_id%"
+      client_secret: "%odnoklassniki.key%"
+      scope: "email"
+      options:
+        application_key: "%odnoklassniki.app_secret%"
+    twitter:
+      type: twitter
+      client_id: "%twitter.app_id%"
+      client_secret: "%twitter.app_secret%"
+      options:
+        infos_url: https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true
+
+snc_redis:
+  clients:
+    default:
+      type: predis
+      alias: "default"
+      dsn: "%redis.host.default%"
+      options:
+        connection_timeout: 2
+        read_write_timeout: 2
+
+lexik_jwt_authentication:
+  secret_key: "%env(base64:JWT_SECRETS_FILE_SOURCE)%"
+  public_key: "%env(base64:JWT_PUBLIC_FILE_SOURCE)%"
+  pass_phrase: "%jwt.pass.phrase%"
+  token_ttl: "%jwt.ttl.access_token%"
+  user_identity_field: id
+  token_extractors:
+    authorization_header:
+      enabled: true
+      prefix: P1TOKEN
+      name: Authorization

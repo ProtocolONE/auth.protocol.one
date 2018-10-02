@@ -1,0 +1,46 @@
+hwi_oauth_redirect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+  prefix: /oauth/connect
+
+hwi_oauth_connect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+  prefix: /oauth/connect
+
+facebook_login:
+  path: /oauth/login/check-facebook
+
+twitter_login:
+  path: /oauth/login/check-twitter
+
+odnoklassniki_login:
+  path: /oauth/login/check-odnoklassniki
+
+vkontakte_login:
+  path: /oauth/login/check-vkontakte
+
+logout:
+  path: /logout
+
+third_party_software:
+  path: /third_party_software
+  defaults:
+    _controller: FrameworkBundle:Template:template
+    template: :app:third_party_software.html.twig
+
+login_check:
+  path: /api/v1/user/login
+  methods: [ POST ]
+
+fos_oauth_server_token:
+  resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+  path: /oauth/v2/auth
+  methods: [ GET, POST ]
+  controller: core.controller.oauth_authorize:authorizeAction
+
+oauth_sources:
+  path: /api/v1/oauth/
+  methods: [ GET ]
+  controller: core.controller.oauth:sourcesAction
+

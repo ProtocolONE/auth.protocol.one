@@ -1,0 +1,33 @@
+services:
+  core.listener.json_request_transform:
+    class: Core\Listener\JsonRequestTransformListener
+    tags:
+    - { name: "kernel.event_listener", event: "kernel.request", method: "onKernelRequest", priority: 100 }
+
+  core.listener.registration:
+    class: Core\Listener\RegistrationListener
+    arguments:
+    - "@fos_user.security.login_manager"
+    - "%fos_user.firewall_name%"
+    tags:
+    - { name: "kernel.event_subscriber" }
+
+  core.listener.ajax_authentication:
+    class: Core\Listener\AjaxAuthenticationListener
+    tags:
+    - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }
+
+  core.listener.code_receive:
+    class: Core\Listener\CodeReceiveListener
+    arguments:
+    - "@core.manager.user_code"
+    - "@core.user_manager"
+    - "@security.password_encoder"
+    - "@core.manager.form"
+    tags:
+    - { name: "kernel.event_subscriber" }
+
+  core.listener.oauth_event_listener:
+    class: Core\Listener\OAuthEventListener
+    tags:
+    - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }

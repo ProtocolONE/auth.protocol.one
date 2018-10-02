@@ -1,0 +1,11 @@
+/.idea/
+/var/cache/*
+/var/logs/*
+!/var/cache/.gitkeep
+!/var/logs/.gitkeep
+/public/js/
+/public/css/
+/node_modules/
+/vendor/
+/composer.lock
+/package-lock.json

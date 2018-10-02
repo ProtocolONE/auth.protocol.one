@@ -1,0 +1,30 @@
+validation:
+    user:
+        register:
+            email:
+                not_blank: "Email can not be empty."
+                not_valid: "Email is invalid."
+                exist: "User with email \"{{ value }}\" already exist."
+            password:
+                min_length: "Password must contain at least 6 characters."
+            read_eula:
+                not_true: "You must accept EULA and Privacy Policy to continue."
+                not_bool: "Incorrect EULA form value."
+        code:
+            action:
+                not_blank: "Code action can not be empty."
+                unknown: "Unknown action value."
+            code:
+                not_blank: "Code can not be empty."
+            email:
+                fake: "Could not get your email. Please <a href=\"{{ value }}\" target=\"_blank\">contact our support team</a>."
+        update:
+            nickname:
+                not_blank: "Nickname can not be empty."
+                exist: "User with nickname \"{{ value }}\" already exist."
+                pattern: "You can use letters, numbers an symbols ._- ~ [ ]"
+        forgot:
+            email:
+                not_exist: "User with email \"{{ value }}\" does not exist."
+            code:
+                not_blank: "Code can not be empty"

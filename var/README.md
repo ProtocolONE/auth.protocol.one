@@ -1,0 +1,1 @@
+This is directory for log and cache files. Change permission to be written to this directory.

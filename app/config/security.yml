@@ -1,0 +1,61 @@
+security:
+  encoders:
+    FOS\UserBundle\Model\UserInterface: bcrypt
+
+  providers:
+    fos_userbundle:
+      id: fos_user.user_provider.username
+
+  firewalls:
+    secured_area:
+      pattern: ^/
+      anonymous: ~
+      fos_oauth:  true
+
+      oauth:
+        resource_owners:
+          facebook: /oauth/login/check-facebook
+          twitter: /oauth/login/check-twitter
+          vkontakte: /oauth/login/check-vkontakte
+          odnoklassniki: /oauth/login/check-odnoklassniki
+        login_path: /login
+        failure_path: /fail
+        use_forward: false
+        use_referer: true
+        default_target_path: /
+        oauth_user_provider:
+          service: core.user_provider
+
+      simple_form:
+        provider: fos_userbundle
+        authenticator: core.security.authenticator.captcha
+        check_path: /api/v1/user/login
+        require_previous_session: false
+        success_handler: core.security.handler.authentication
+        failure_handler: core.security.handler.authentication
+        username_parameter: email
+        password_parameter: password
+
+      logout:
+        path: /logout
+        target: "%routing.logout.target%"
+        success_handler: core.security.handler.logout
+        invalidate_session: false
+
+      remember_me:
+        secret: "%default_secret%"
+        lifetime: 63072000
+        remember_me_parameter: remember_me
+
+    oauth_token:
+      pattern: ^/oauth/v2/token
+      security: false
+
+    oauth_authorize:
+      pattern: ^/oauth/v2/auth
+      anonymous: true
+
+  access_control:
+  - { path: ^/api/v1/s/user/send-email/forgot, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+  - { path: ^/api/v1/s/user/change-password, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+  - { path: ^/api/v1/s/.*, roles: [IS_AUTHENTICATED_FULLY] }

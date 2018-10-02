@@ -1,0 +1,12 @@
+services:
+  core.validator.unique_data:
+    class: Core\Validator\UniqueDataValidator
+    autowire: true
+    tags:
+    - { name: "validator.constraint_validator" }
+
+  core.validator.email:
+    class: Core\Validator\EmailValidator
+    autowire: true
+    tags:
+    - { name: "validator.constraint_validator" }

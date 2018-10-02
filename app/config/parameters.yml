@@ -1,0 +1,89 @@
+parameters:
+  default_locale: en
+  default_secret: "GznmUbujd!nj&@VyjujBkv8#@Lj"
+
+  routing.logout.target: "/"
+
+  redis.host.default: "redis://127.0.0.1:6379"
+
+  mongodb_server: "mongodb://localhost:27017"
+  mongodb_database: "test_database"
+
+  database.users.host: "10.255.0.13"
+  database.users.port: 3306
+  database.users.user: "aika"
+  database.users.password: "12345"
+  database.users.dbname: "p1"
+
+  oauth.connection.pattern: "/\/connect\/check\/(facebook|google|twitter|vkontakte|odnoklassniki)$/i"
+
+  facebook.app_id: "580128682172889"
+  facebook.app_secret: "6db6f8204f80fc0ce0a4f5ef75c7b4a1"
+  twitter.app_id: "bg8AMTvp7r5hPmiFEhISZKj4p"
+  twitter.app_secret: "rLMDRFvkmPwqs77z96JUAe2fpIggKUUlsSBvvM6nNB6UaRE6Cr"
+  vkontakte.app_id: "2755495"
+  vkontakte.app_secret: "XAD7d9qiUf0ZNEOuqTQj"
+  odnoklassniki.app_id: "1248179200"
+  odnoklassniki.key: "03AF1A4794444CAA21C951B9"
+  odnoklassniki.app_secret: "CBAFLGGLEBABABABA"
+
+  oauth.sources:
+  - name: "facebook"
+    url: "/oauth/connect/facebook"
+  - name: "vkontakte"
+    url: "/oauth/connect/vkontakte"
+  - name: "odnoklassniki"
+    url: "/oauth/connect/odnoklassniki"
+
+  mailer.transport: "smtp"
+  mailer.host: "relay.protocol.com"
+  mailer.port: 25
+  mailer.sender.address: "noreply@protocol.one"
+  mailer.sender.name: "ProtocolOne"
+
+  email.forgot_password.subject: "email.forgot_password.subject"
+
+  settings.email.notification:
+    subject:
+      forgot_password: "%email.forgot_password.subject%"
+    from:
+      user: "%mailer.sender.address%"
+      sender: "%mailer.sender.name%"
+
+  settings.user.cookie_name: "P1_AUTH"
+
+  system.codes.settings:
+    storage_mask: "system:codes:%s"
+    lifetime: 600
+
+  auth.settings:
+    before_captcha_try_count: 3
+    before_lock_try_count: 10
+    lifetime: 1800
+    captcha_chars: ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8"]
+    captcha_length: 5
+    storage_masks:
+      try_count: "secure:authenticate:try_count:%u"
+      captcha_chars: "secure:authenticate:captcha_chars:%u"
+      temporary_lock: "secure:authenticate:temporary_lock:%u"
+    captcha_builder_settings:
+      reg:
+        width: 192
+        height: 44
+        textColor: [255, 255, 255]
+      login:
+        width: 192
+        height: 44
+        textColor: [0, 0, 0]
+        backColor: [255, 255, 255]
+      restore:
+        width: 192
+        height: 44
+        textColor: [255, 255, 255]
+
+
+  env(JWT_SECRETS_FILE_SOURCE): "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS0FJQkFBS0NBZ0VBcE5vK3M2SXJVaTYzRXU2SjE5THpYTGVwaXVnV0VROVRPRFUvZUlMOE1XS0h3M1k0CmErUSt1OXc2T2ZFMXBsKzBmWEZPQ3Qyd3YzTjRkczNRazNwendQMWxzQWJiNk4yRVVzRDBxNG1KdHZyQUZxSGEKWkx4dkVIOWdMUnBKZ0NtNndZTGJmVXR6eTJEanJUQmVSZlI0WlQzK3VGWHFpQkdUdkJkVVZoRStlYTJQampHNQoyZVllSllhbUJXb2Z2TmxVV01KR1NpVFhRNXBjODNVQ3RMaGQzNUlxSDlma3hlOWpON2FCTG9OU0xUaXVjclZZCkd2bzdHZ0h1TTREeFMzbGNGSlQxY0Q4WmZaZTRYN1RER1lXZ3JmK1B1cTFlNWEyVjNydkFIMjhZZkhPZEZseGsKQXRZQnkySmVHb1I2RDcyekxNb3hnRDFVSUVvWEJpLzFoU3dzS3RQckJhdFVyQnAxMFFQOFJOS1FvV1VUeFdIWQpIVmdvQm5zb28vRjREcnM5d0RVTjI0SE5YRFFkL21odDF3dGUvaFp5bFZaNGpCU3pIQXBBRUhDOTZQZW81OUdRCkdJR3pyU2xsS3RNajJJUE5xRFhtSzFpWHZEZnBLNXVuSzFyQkF3SW9iZTFFWkdTZzBJaFA5dDFYRUV6TUJET0gKTk9XK0ZVSlJGU0tEMHQ0NTlpNEtNNkNwV0VRdktCUlZwOUhHTlhFa0ZJR1RNMm5OSWlqTTJWbVg0ekM1ZlZYcgpETWRkQ2lxZUR0M0lLK256eW0rbTBaemZ1RFlJUS85ZGdDVFNwSXZpNGZLZGlPQXF4azBOajJyRnVMaHJ2SDVPCk4xVS9jNng1YkZIS0w2YTdZUkJaQjV6aGd2RFRJdW5Fd2JUOFd6akN4R0U3UkdMK2g1WkNlMlk4MjZVQ0F3RUEKQVFLQ0FnQURVQk4wZnF6S01RQWkxRUpXNFBsZEFwL1lsOE5od21JVXZoVXhjY2hwb2FaQ3lreGw5cWRBRlRQaQpXRE9RelZtT0w4bTJ0Qy9LR1NMeG1EODV4M3N1QkttWGVQdlFXU3RBa25vWVBHSlZHQUxtTVloMi84Wm5tWGV3ClVGZnJ5R3JsV3FEWWlyeWYrS2w2b0g4MGZxNHdzcWM4d3hVOGVNWDBRSy9FTHdLSFpYSitGQWU5RmovQzEwcmMKenY0bVNHUEdpTmpxd29URTZnUTJMRUxLcU8zU0FWanhYT0JQRGZsN2RDSnljZGNqNjRDdDgzRDYwYzZBUGt1dwpJMFkyRXhGRHBKNnVDOGFTWElzcStUSDJnRlh6U1RCMU91aXVTdWU1R3lMSVB1NUtDZlM5TDB3Zk5uZkF3NUJLCmppRDUwZ0VZeEZOc1ZVOHNldkN0Z2ljMzd1UlFTOEltYUhRa2pVNEI1VG9qNGdHa3Q1NENYb1l4ODBxa0haeFcKaGtGQUhOdU1KMU9EMVkxVkVjZ0JYOTdFYUpXSE16RXV4ZVBYbDJQUDhQZ2JjMldMblR3RmU3c1FUYi9vcDVzYwo3cGhyb0hjNmZra09zc3dTWEpuUDhxcnJRL2dwTHA4ZkpkYTN6eEhjblZHek13SUFUUStubk54Y21YamZnbHQ5CjA2enNGbWxsdzdkc2NJMDlFZ1NWNk9xRUl2b1c0UThzSFhTbDNwN2gyMENhR1JYMm1MRmkzRzdXWnlJcTF6UFoKNm5QVzlLTXNHUzc2R29BRUM4UTExSnVYTUZRN0RVVEs3UU1HYkFGdVpIV3BUVkQ5SFBWMGdzUnEvaFdId2xkTApzVmpzL201TlFaa1VmTG9wTSs2ZWdUcEIyK0dMRkRldE5PTlhvY3ZMNUh4UHE0cDJ2UUtDQVFFQXp5SklPQkhICkZFU1V0RFYyV0hxdWpZYUZBeTBrUXNqYVZud2Q3UnlTV1FhYkozeWNtWWVTeC9oUkNxWGRUaU1mdE12R1FIcEUKRGhicEZMVEY4TWFOWktEd2E1S2ZWblJqb3JONHdtdkNlZUJmNnlNSFRHRVhtT0l2OGgxODBkbTg0aVo2TVRBUAp5UkJEVXpJVFREeXdRQi81WFVWb3JmUGV4VEwzTUREYmdzWjVRall3cUNvRW4xVm9MRzU3Z1h2dzVUNkFaT1Z0CkErWGFKQnJPUFBYYnlxZzN4NkUrK3dhMk5HekUzSkY5NWVsYVJZV0E0UGUyWW9Hd0tmdVdRRjJxS1dJTk1ST1MKOTNNMWl4TWlpS21qOEN5UU9xRlVEMy94aHlHaVl0REFmYzk2WDF3cUFOc1AxMDJCVndZRnVCSW4vUGh0WnM4SgpORFBzcldRZThVK2Q2d0tDQVFFQXk3NW56aC9ucUpZVW5MNmZCUGRLUTByR2xWK252TkE1SGl2UklKWWVGbmtKCnEzZ2pybENOSkdmdVVGZGY2bGUxQ0ZzemtSeUM0TkpkOWJxamJiSDJKbkZnTjlEQ1N1UFpkbWxIL1dnbStObDIKcGpWd3FZTXl4d2sxZnByK3BEcHdpdHUwTGdOTEg4N1FuMkhTVXR5eVFyZjJoV1pBZlhzYWMvdEpkSnUxK3ZHYgphcmoyVnprNmhOZzFhTEhuQktIRWE1NllkZklpU2NRek1ZSW9WR2lOeUcxK3ZURllBa09zSTRzUjlzTzRuVEF6CkQwcDM2QUh5dFBWQ09wSytMQm9neG5JRk1lYVltYUhwYXJETkd6T0VqOFFKME05WEJxcTlkUWRPOWFoUG1jeXEKcGFYMThkRFFZbk1VZTNjdmJHbFZTL2kyNUl1ZXJkVmJTc3dQSHkyNHJ3S0NBUUVBbVRsaTh4Y3pqV3F1RmlEMgpTcjEySW50QUtmbGF1WXlhOXg4WmhDMStsUnl0NmFma3NDMzZCck5LUC9ZeW4zcWNHY0lrQmM1c1NYL3BLOGdPCkpPNjc2WlNrUk85UnIwS3A4ZEdSbzBEVHZCU2UzL0lway9hKzNmbDBQa1pSNzJxQ3IwaUhXNXVTRWNwV0ExVW4Kc1Yyemc3d2pXenZkRTlFekdlMTVyY3gybFdiOGpGNUo0QncxRHlpK3h4OXpmWFdSM2dNK04yVUFIOElJZkd6WAo0NEI3OW80NXRSTXk0Nzh6U2RTc1MvM1VoQjc3Q0RLYUE5RTZ1ZVAxelJpdkxTNGNra0JXUWRlWkFEUFpoK2UvCnhCaTVqUkZxSC9UM21mK3JTNnMxMUtOWHdibVpiTEZnNFFFcjFya2UxS0UvMmNxVWlpMjd3REduUFZhcjNoZ1MKUzYvNXdRS0NBUUJCcGplU2ZrdEowaG9RSzRmWHRNclVCZnNZMUhxYTUwa1FSTFFjMk9JWEFhY3cvZ1FaUGRGTQp3c1JTVk9VT0FIYlBtM3R4TFl1cVgzNXhHRk5pbkM0aFV2VGE1MFJEbDBsUjB6aWtHWFE5U096blAxN3U3OXhqCnI3N3g3WVZSYTVjcDF3TW10RjczZjg5UEc5a0daQ0I0U1FpQkVXS0VUQzlJNGRaWVlYZnd4UHI4RjE4ZzJjclcKVlVoWVZNS0lob3RnMWZod1FMWDFxT2VKODFPRlp5OFFQdC9RbkY2c1ZCdmFWQXhVdzludnBFRS9reEl4eXJibQp3Z1EyRldSN2wydXFKY0V3eEFtMXJ5c2orcFlNUnJ4WENxYlRCb3dYRk5yNUk0SzR1eVB5L2JTYXJYQWpHOUtaCmRsVktOeXdydFlFTGVyZUx5c1UxWkFNSGhkcjFnK2ozQW9JQkFEMEdUbWlRcXZzY2FrSmhNYkF2N212UnUvQnoKNUxWdTdQeXFOMnZlZ1FDN0JqRDBjVEx0a2c2L0dmSVVNWFFSWEdtNE1OZ2pQV2Q0akt0SWxIQU9Xb3lGQW5GRQpTWlJEd3pBMy96VnN2UFBoM0hsd21YSEQra1pIMUNmeGdZRDArbStJbFZuSm9pbUY4a1dLNEJQMnRXZDh4UUd4CisvQkh0M1RGVWJCd1lUUHQwbTdvbVM3ak1MMUx5eFp0WHZjWG1Jbk9hYWN4VGRiYUlDaUZsRlFPZHNCZjAzY20Kamx0akczWmJ4dmxSS2VTZ0kzaUhwQjZhS3cwNVNKRDFxMmlRZFU2L3pwZXBmamJ2UEZzcjB1aDFyb3dyeDA3dwp3UEFMQ2Q0a1JaU2xkeHczNUs2WXY4MGxML1lqSVgxRmdtYUhWME56aGROVVYwNjNtcXdoRnBSdXQ2az0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K"
+  env(JWT_PUBLIC_FILE_SOURCE): "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQ0lqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FnOEFNSUlDQ2dLQ0FnRUFwTm8rczZJclVpNjNFdTZKMTlMegpYTGVwaXVnV0VROVRPRFUvZUlMOE1XS0h3M1k0YStRK3U5dzZPZkUxcGwrMGZYRk9DdDJ3djNONGRzM1FrM3B6CndQMWxzQWJiNk4yRVVzRDBxNG1KdHZyQUZxSGFaTHh2RUg5Z0xScEpnQ202d1lMYmZVdHp5MkRqclRCZVJmUjQKWlQzK3VGWHFpQkdUdkJkVVZoRStlYTJQampHNTJlWWVKWWFtQldvZnZObFVXTUpHU2lUWFE1cGM4M1VDdExoZAozNUlxSDlma3hlOWpON2FCTG9OU0xUaXVjclZZR3ZvN0dnSHVNNER4UzNsY0ZKVDFjRDhaZlplNFg3VERHWVdnCnJmK1B1cTFlNWEyVjNydkFIMjhZZkhPZEZseGtBdFlCeTJKZUdvUjZENzJ6TE1veGdEMVVJRW9YQmkvMWhTd3MKS3RQckJhdFVyQnAxMFFQOFJOS1FvV1VUeFdIWUhWZ29CbnNvby9GNERyczl3RFVOMjRITlhEUWQvbWh0MXd0ZQovaFp5bFZaNGpCU3pIQXBBRUhDOTZQZW81OUdRR0lHenJTbGxLdE1qMklQTnFEWG1LMWlYdkRmcEs1dW5LMXJCCkF3SW9iZTFFWkdTZzBJaFA5dDFYRUV6TUJET0hOT1crRlVKUkZTS0QwdDQ1OWk0S002Q3BXRVF2S0JSVnA5SEcKTlhFa0ZJR1RNMm5OSWlqTTJWbVg0ekM1ZlZYckRNZGRDaXFlRHQzSUsrbnp5bSttMFp6ZnVEWUlRLzlkZ0NUUwpwSXZpNGZLZGlPQXF4azBOajJyRnVMaHJ2SDVPTjFVL2M2eDViRkhLTDZhN1lSQlpCNXpoZ3ZEVEl1bkV3YlQ4Cld6akN4R0U3UkdMK2g1WkNlMlk4MjZVQ0F3RUFBUT09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
+  jwt.pass.phrase: "f7Mpn3wUdugq59udkI9yiq6Sezcqsf6kbk7rEFGwzMLY5vfXHKECHGlilQk8z8mW"
+  jwt.ttl.access_token: 1800
+  jwt.ttl.refresh_token: 31556926

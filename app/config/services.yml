@@ -1,0 +1,76 @@
+services:
+  core.security.handler.authentication:
+    class: Core\Security\Handler\AuthenticationHandler
+    arguments: ["@core.user_manager", "@core.user.token_manager"]
+
+  core.manager.security:
+    class: Core\Manager\SecurityManager
+    arguments: ["@snc_redis.default", "%auth.settings%"]
+
+  core.security.authenticator.captcha:
+    class: Core\Security\Authenticator\CaptchaAuthenticator
+    arguments: ["@security.password_encoder", "@core.manager.security"]
+
+  core.security.handler.logout:
+    class: Core\Security\Handler\LogoutHandler
+    arguments:
+    - "@security.http_utils"
+    - "%routing.logout.target%"
+    - "%settings.user.cookie_name%"
+
+  core.user_manager:
+    class: Core\Manager\UserManager
+    arguments:
+    - "@fos_user.util.password_updater"
+    - "@fos_user.util.canonical_fields_updater"
+    - "@fos_user.object_manager"
+    - "%fos_user.model.user.class%"
+    calls:
+    - ["setRequestStack", ["@request_stack"]]
+    - ["setSecretKey", ["%kernel.secret%"]]
+
+  core.user_provider:
+    class: Core\Manager\UserProvider
+    arguments: ["@core.user_manager", { facebook: "facebookUid", twitter: "twitterUid" }]
+
+  core.manager.form:
+    class: Core\Manager\FormManager
+    autowire: true
+
+  core.manager.user_code:
+    class: Core\Manager\UserCodeManager
+    arguments: ["@snc_redis.default", "%system.codes.settings%"]
+
+  core.controller.oauth_authorize:
+    class: Core\Controller\OAuthAuthorizeController
+    arguments:
+    - "@request_stack"
+    - "@fos_oauth_server.authorize.form"
+    - "@fos_oauth_server.authorize.form.handler"
+    - "@fos_oauth_server.server"
+    - "@templating"
+    - "@security.token_storage"
+    - "@router"
+    - "@fos_oauth_server.client_manager"
+    - "@event_dispatcher"
+    - "@session"
+    - "%fos_oauth_server.template.engine%"
+    public: true
+
+  core.controller.oauth:
+    class: Core\Controller\OAuthController
+    public: true
+
+  core.controller.refresh_token:
+    class: Core\Controller\RefreshTokenController
+    public: true
+
+  core.user.token_manager:
+    class: Core\Manager\TokenManager
+    arguments:
+    - "@request_stack"
+    - "@fos_user.object_manager"
+    - "@lexik_jwt_authentication.jwt_manager"
+    - "%jwt.ttl.refresh_token%"
+    - "%jwt.ttl.access_token%"
+

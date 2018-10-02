@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Debug\Debug;
+use Core\Command\OAuthServerClientCreate;
+
+set_time_limit(0);
+
+require_once __DIR__ . '/../app/AppKernel.php';
+require_once __DIR__ . '/../app/autoload.php';
+
+$input = new ArgvInput();
+$env = $input->getParameterOption(array('--env', '-e'), getenv(SYMFONY_ENV) ?: SYMFONY_ENV_DEV);
+$debug = getenv(SYMFONY_DEBUG) !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== SYMFONY_ENV_PROD;
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new AppKernel($env, $debug);
+$application = new Application($kernel);
+$application->add(new OAuthServerClientCreate());
+$application->run($input);

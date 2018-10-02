@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<script>
+    let mode = '{{ mode }}'
+        , socket = new WebSocket('{{ wsUrl }}')
+        , message = JSON.stringify({
+            "event": '{{ event }}',
+            "message": {
+                "accessToken": {
+                    "value": "{{ (tokens.accessToken) ? tokens.accessToken.value : '' }}",
+                    "exp": "{{ (tokens.accessToken) ? tokens.accessToken.exp : '' }}"
+                },
+                "refreshToken": {
+                    "value": "{{ (tokens.refreshToken) ? tokens.refreshToken.value : '' }}",
+                    "exp": "{{ (tokens.refreshToken) ? tokens.refreshToken.exp : '' }}"
+                }
+            }
+        }
+    );
+
+    switch (mode) {
+        case 'websocket':
+            socket.onopen = function () {
+                socket.send(message);
+            };
+            break;
+        case 'postmessage':
+            if (window.opener) {
+                window.opener.postMessage(message, '*');
+                window.opener.focus();
+                window.close();
+            } else {
+                console.error('Window to authorize not found');
+            }
+            break;
+        default:
+            console.error('Mode <' + mode + '> is not supported');
+    }
+</script>
+</body>
+</html>
+
