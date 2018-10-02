@@ -12,11 +12,11 @@ the password. To change the user's password, you must send a POST request to the
 - password `string` (new user password)
 - code `string` (code from the letter)
 
-###HTTP codes
+### HTTP codes
 - 200 (ОК)
 - 400 (Error in query parameters)
 
-#####Example of success change password
+##### Example of success change password
 Request headers
 
     Host: auth.protocolone.local
@@ -41,7 +41,7 @@ Response body
         "result": true
     }
 
-#####Example of failed change password
+##### Example of failed change password
 Request headers
 
     Host: auth.protocolone.local

@@ -4,7 +4,7 @@ Registration and authentication over oAuth
 The user can register and log in using external accounts that implement the oAuth protocol.
 The list of available services can be requested by `/api/v1/oauth/sources`.
 
-#####Example of list oAuth services
+##### Example of list oAuth services
 Request headers
 
     Host: auth.protocolone.local
@@ -27,7 +27,7 @@ Response body
         }
     ]
 
-####Authentication
+#### Authentication
 To authenticate to the end service, open a new browser window with the address 
 corresponding to the service. Specify the GET parameter `_destination` according to how 
 you will handle the authentication response. Currently there are two message transport 
@@ -54,7 +54,7 @@ the following structure:
  is successful, an array with tokens will be located in `message`, as well as in 
  authentication by [login and password](authentication-by-username.md).
  
-#####Example of oAuth authentication by VKontakte with WebSocket
+##### Example of oAuth authentication by VKontakte with WebSocket
 Request headers
 
     Host: auth.protocolone.local

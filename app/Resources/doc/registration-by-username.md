@@ -46,7 +46,7 @@ Response body
         }
     }
 
-#####Example of failed registration
+##### Example of failed registration
 Request headers
 
     Host: auth.protocolone.local

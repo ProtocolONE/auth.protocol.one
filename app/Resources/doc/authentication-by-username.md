@@ -18,13 +18,13 @@ blocked by the possibility of authentication for a period of 10 minutes (by defa
 
 How to get captcha? Find out on [this page](captcha.md).
 
-###HTTP codes
+### HTTP codes
 - 200 (ОК)
 - 400 (Invalid username or password)
 - 429 (Captcha require or invalid captcha)
 - 426 (Temporary lock)
 
-#####Example of success registration
+##### Example of success registration
 Request headers
 
     Host: auth.protocolone.local
@@ -56,7 +56,7 @@ Response body
         }
     }
 
-#####Example of failed registration
+##### Example of failed registration
 Request headers
 
     Host: auth.protocolone.local

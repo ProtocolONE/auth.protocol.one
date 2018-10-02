@@ -5,11 +5,11 @@ To receive or update the access token, you must send a GET request to the addres
 `/api/v1/token/refresh/{token}`. Where the `{token}` should be replaced by the content 
 of the refresh token.
 
-###HTTP codes
+### HTTP codes
 - 200 (ОК)
 - 403 (Invalid or expired refresh token)
 
-#####Example of success to get access token
+##### Example of success to get access token
 Request headers
 
     Host: auth.protocolone.local
@@ -29,7 +29,7 @@ Response body
         }
     }
 
-#####Example of failed to get access token
+##### Example of failed to get access token
 Request headers
 
     Host: auth.protocolone.local

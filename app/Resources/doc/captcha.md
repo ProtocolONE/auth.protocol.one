@@ -14,10 +14,10 @@ the following format:
 - inline (in base64 format)
 
 
-###HTTP codes
+### HTTP codes
 - 200 (ОК)
 
-#####Example of get captcha in inline mode
+##### Example of get captcha in inline mode
 Request headers
 
     Host: auth.protocolone.local
