@@ -32,7 +32,7 @@ To authenticate to the end service, open a new browser window with the address
 corresponding to the service. Specify the GET parameter `_destination` according to how 
 you will handle the authentication response. Currently there are two message transport 
 options supported: `JavaScript PostMessage` and` WebSocket`. 
-The value of the parameter `destination` must be encoded, for example, through 
+The value of the parameter `_destination` must be encoded, for example, through 
 [encodeURIComponent] (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) 
 for the correct transmission of control characters.
 
@@ -61,7 +61,7 @@ Request headers
     
 Request URL
 
-    http://auth.protocolone.local/oauth/connect/vkontakte?_destination=%2Fapi%2Fv1%2Foauth%2Fresult%2Fwebsocket%3Fdsn%3Dwss%3A%2F%2F127.0.0.1%3A123%2F
+    http://auth.protocolone.local/oauth/connect/vkontakte?_destination=%2Fapi%2Fv1%2Foauth%2Fresult%2Fwebsocket%3FwsUrl%3Dwss%3A%2F%2F127.0.0.1%3A123%2F
     
 Response object (without `JSON.stringify`)
 

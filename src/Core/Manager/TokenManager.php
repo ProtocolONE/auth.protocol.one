@@ -80,22 +80,28 @@ class TokenManager
 
     /**
      * @param User $user
+     * @param UserAuth $refreshToken
      * @return string
      */
-    public function createRefreshToken(User $user): string
+    public function createRefreshToken(User $user, UserAuth $refreshToken = null): string
     {
         $token = bin2hex(openssl_random_pseudo_bytes(128));
         $expireAt = (new \DateTime)->modify("+{$this->refreshTokenTtl} seconds");
 
-        $userAuth = (new UserAuth)
-            ->setUser($user)
-            ->setIp($this->requestStack->getCurrentRequest()->getClientIp())
-            ->setUserAgent($this->getUserAgent())
-            ->setCreatedAt(new \DateTime())
-            ->setExpireAt($expireAt)
-            ->setToken($token);
+        if ($refreshToken instanceof UserAuth) {
+            $refreshToken->setExpireAt($expireAt);
+        } else {
+            $refreshToken = (new UserAuth)
+                ->setUser($user)
+                ->setIp($this->requestStack->getCurrentRequest()->getClientIp())
+                ->setUserAgent($this->getUserAgent())
+                ->setCreatedAt(new \DateTime())
+                ->setExpireAt($expireAt);
 
-        $this->objectManager->persist($userAuth);
+            $this->objectManager->persist($refreshToken);
+        }
+
+        $refreshToken->setToken($token);
         $this->objectManager->flush();
 
         return $token;

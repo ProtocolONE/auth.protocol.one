@@ -50,6 +50,10 @@ class RefreshTokenController extends Controller
                 'value' => $tManager->createAccessToken($refreshToken->getUser()),
                 'exp' => $tManager->getAccessTokenExp(),
             ],
+            'refreshToken' => [
+                'value' => $tManager->createRefreshToken($refreshToken->getUser(), $refreshToken),
+                'exp' => $tManager->getRefreshTokenExp(),
+            ],
         ]);
     }
 }

@@ -9,23 +9,17 @@ parameters:
   mongodb_server: "mongodb://localhost:27017"
   mongodb_database: "test_database"
 
-  database.users.host: "10.255.0.13"
-  database.users.port: 3306
-  database.users.user: "aika"
-  database.users.password: "12345"
-  database.users.dbname: "p1"
-
   oauth.connection.pattern: "/\/connect\/check\/(facebook|google|twitter|vkontakte|odnoklassniki)$/i"
 
-  facebook.app_id: "580128682172889"
-  facebook.app_secret: "6db6f8204f80fc0ce0a4f5ef75c7b4a1"
-  twitter.app_id: "bg8AMTvp7r5hPmiFEhISZKj4p"
-  twitter.app_secret: "rLMDRFvkmPwqs77z96JUAe2fpIggKUUlsSBvvM6nNB6UaRE6Cr"
-  vkontakte.app_id: "2755495"
-  vkontakte.app_secret: "XAD7d9qiUf0ZNEOuqTQj"
-  odnoklassniki.app_id: "1248179200"
-  odnoklassniki.key: "03AF1A4794444CAA21C951B9"
-  odnoklassniki.app_secret: "CBAFLGGLEBABABABA"
+  facebook.app_id: ""
+  facebook.app_secret: ""
+  twitter.app_id: ""
+  twitter.app_secret: ""
+  vkontakte.app_id: ""
+  vkontakte.app_secret: ""
+  odnoklassniki.app_id: ""
+  odnoklassniki.key: ""
+  odnoklassniki.app_secret: ""
 
   oauth.sources:
   - name: "facebook"
@@ -86,4 +80,4 @@ parameters:
   env(JWT_PUBLIC_FILE_SOURCE): "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQ0lqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FnOEFNSUlDQ2dLQ0FnRUFwTm8rczZJclVpNjNFdTZKMTlMegpYTGVwaXVnV0VROVRPRFUvZUlMOE1XS0h3M1k0YStRK3U5dzZPZkUxcGwrMGZYRk9DdDJ3djNONGRzM1FrM3B6CndQMWxzQWJiNk4yRVVzRDBxNG1KdHZyQUZxSGFaTHh2RUg5Z0xScEpnQ202d1lMYmZVdHp5MkRqclRCZVJmUjQKWlQzK3VGWHFpQkdUdkJkVVZoRStlYTJQampHNTJlWWVKWWFtQldvZnZObFVXTUpHU2lUWFE1cGM4M1VDdExoZAozNUlxSDlma3hlOWpON2FCTG9OU0xUaXVjclZZR3ZvN0dnSHVNNER4UzNsY0ZKVDFjRDhaZlplNFg3VERHWVdnCnJmK1B1cTFlNWEyVjNydkFIMjhZZkhPZEZseGtBdFlCeTJKZUdvUjZENzJ6TE1veGdEMVVJRW9YQmkvMWhTd3MKS3RQckJhdFVyQnAxMFFQOFJOS1FvV1VUeFdIWUhWZ29CbnNvby9GNERyczl3RFVOMjRITlhEUWQvbWh0MXd0ZQovaFp5bFZaNGpCU3pIQXBBRUhDOTZQZW81OUdRR0lHenJTbGxLdE1qMklQTnFEWG1LMWlYdkRmcEs1dW5LMXJCCkF3SW9iZTFFWkdTZzBJaFA5dDFYRUV6TUJET0hOT1crRlVKUkZTS0QwdDQ1OWk0S002Q3BXRVF2S0JSVnA5SEcKTlhFa0ZJR1RNMm5OSWlqTTJWbVg0ekM1ZlZYckRNZGRDaXFlRHQzSUsrbnp5bSttMFp6ZnVEWUlRLzlkZ0NUUwpwSXZpNGZLZGlPQXF4azBOajJyRnVMaHJ2SDVPTjFVL2M2eDViRkhLTDZhN1lSQlpCNXpoZ3ZEVEl1bkV3YlQ4Cld6akN4R0U3UkdMK2g1WkNlMlk4MjZVQ0F3RUFBUT09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
   jwt.pass.phrase: "f7Mpn3wUdugq59udkI9yiq6Sezcqsf6kbk7rEFGwzMLY5vfXHKECHGlilQk8z8mW"
   jwt.ttl.access_token: 1800
-  jwt.ttl.refresh_token: 31556926
+  jwt.ttl.refresh_token: 5184000
