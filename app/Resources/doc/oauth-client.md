@@ -36,6 +36,10 @@ The value of the parameter `_destination` must be encoded, for example, through
 [encodeURIComponent] (https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) 
 for the correct transmission of control characters.
 
+For example: the `_destination` value for getting a response using PostMessage should be 
+`/api/v1/oauth/result/postmessage`. The encoded string will look like 
+`%2Fapi%2Fv1%2Foauth%2Fresult%2Fpostmessage`.
+
 When using `WebSocket`, you must pass the` wsUrl` parameter, which contains the url with 
 the `WebSocket` server, to which the response will be sent.
 

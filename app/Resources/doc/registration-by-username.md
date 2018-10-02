@@ -10,11 +10,11 @@ required parameters:
 If the registration is successful, refreshToken and accessToken tokens will return, 
 as well as the end time, otherwise have error message.
 
-###HTTP codes
+### HTTP codes
 - 200 (ОК)
 - 400 (Error in query parameters)
 
-#####Example of success registration
+##### Example of success registration
 Request headers
 
     Host: auth.protocolone.local
