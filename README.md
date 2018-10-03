@@ -26,10 +26,9 @@ Install the dependencies by running the command:
 
     composer install
     
-After that, generate the schema and documents in the database:
+After that, generate the schema in the database:
 
     php bin/console doctrine:mongodb:schema:create --index
-    php bin/console doctrine:mongodb:generate:documents AppBundle
     
 Configure available oAuth authentication. [More details](app/Resources/doc/oauth-client.md).
 
