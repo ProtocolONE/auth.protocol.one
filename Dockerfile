@@ -4,7 +4,6 @@ LABEL maintainer="Vadim Sabirov <vadim.sabirov@protocol.one>"
 
 RUN apt-get update \
     && apt-get install -y \
-    g++ \
     git \
     libc-client-dev \
     libfreetype6-dev \
@@ -27,6 +26,8 @@ RUN docker-php-ext-install \
     && docker-php-ext-install gd \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
+    && docker-php-ext-install opcache \
+    && docker-php-ext-enable opcache \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && pecl install redis && docker-php-ext-enable redis \
     && apt-get autoremove -y --purge \
