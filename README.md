@@ -29,6 +29,8 @@ After that, generate the schema and documents in the database:
 
     php bin/console doctrine:mongodb:schema:create --index
     php bin/console doctrine:mongodb:generate:documents AppBundle
+    
+Configure available oAuth authentication. [More details](app/Resources/doc/oauth-client.md).
 
 Documentation
 -------------

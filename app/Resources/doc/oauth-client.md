@@ -4,6 +4,11 @@ Registration and authentication over oAuth
 The user can register and log in using external accounts that implement the oAuth protocol.
 The list of available services can be requested by `/api/v1/oauth/sources`.
 
+In the configuration file `app/config/config.yml`, arrange the section` hwi_oauth.resource_owners` and 
+specify the current settings for the authentication sources there. In the file `app/config/parameters.yml`, 
+change the `oauth.sources` section, only these providers will be given when calling the 
+`/api/v1/oauth/sources` method.
+
 ##### Example of list oAuth services
 Request headers
 
