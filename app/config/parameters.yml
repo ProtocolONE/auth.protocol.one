@@ -22,12 +22,12 @@ parameters:
   odnoklassniki.app_secret: ""
 
   oauth.sources:
-  - name: "facebook"
-    url: "/oauth/connect/facebook"
+#  - name: "facebook"
+#    url: "/oauth/connect/facebook"
   - name: "vkontakte"
     url: "/oauth/connect/vkontakte"
-  - name: "odnoklassniki"
-    url: "/oauth/connect/odnoklassniki"
+#  - name: "odnoklassniki"
+#    url: "/oauth/connect/odnoklassniki"
 
   mailer.transport: "smtp"
   mailer.host: "relay.protocol.com"

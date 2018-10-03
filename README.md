@@ -8,6 +8,7 @@ Prerequisites
 -------------
 - [PHP](https://secure.php.net/) 7.0 or above
 - [MongoDB](https://www.mongodb.com/) 4.0 or above
+- [Redis](https://redis.io/) 3.0 or above
 - [OpenSSL](https://www.openssl.org/)
 - [Composer](https://getcomposer.org/)
 
