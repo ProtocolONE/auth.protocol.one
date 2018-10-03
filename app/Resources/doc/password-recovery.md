@@ -19,6 +19,7 @@ the password. To change the user's password, you must send a POST request to the
 ##### Example of success change password
 Request headers
 
+    POST: /api/v1/s/user/change-password
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -44,6 +45,7 @@ Response body
 ##### Example of failed change password
 Request headers
 
+    POST: /api/v1/s/user/change-password
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     

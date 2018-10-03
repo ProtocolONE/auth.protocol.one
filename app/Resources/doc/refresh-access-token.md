@@ -13,6 +13,7 @@ need to be used in further requests. The old refreshToken will no longer work.
 ##### Example of success to get access token
 Request headers
 
+    GET: /api/v1/token/refresh/asd79087vb98z7fxcvb876987d6f8g69c8v7b6xc
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -37,6 +38,7 @@ Response body
 ##### Example of failed to get access token
 Request headers
 
+    GET: /api/v1/token/refresh/asd79087v
     Host: auth.protocolone.local
 
 Response headers

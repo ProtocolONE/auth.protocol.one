@@ -20,14 +20,8 @@ the following format:
 ##### Example of get captcha in inline mode
 Request headers
 
+    GET: /api/v1/captcha/login?email=test@domain.com&mode=inline
     Host: auth.protocolone.local
-    
-Request body
-
-    {
-        "email": "test@domain.com", 
-        "mode": "inline"
-    }
     
 Response headers
 

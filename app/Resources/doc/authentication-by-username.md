@@ -27,6 +27,7 @@ How to get captcha? Find out on [this page](captcha.md).
 ##### Example of success registration
 Request headers
 
+    POST: /api/v1/user/login
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -59,6 +60,7 @@ Response body
 ##### Example of failed registration
 Request headers
 
+    POST: /api/v1/user/login
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     

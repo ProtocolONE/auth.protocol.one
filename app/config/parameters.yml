@@ -4,7 +4,7 @@ parameters:
 
   routing.logout.target: "/"
 
-  redis.host.default: "redis://auth-redis:6379"
+  redis.host.default: "redis://authprotocolone_redis_1:6379"
 
   mongodb_server: "mongodb://auth-mongo:27017"
   mongodb_database: "test_database"
