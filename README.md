@@ -12,8 +12,14 @@ Prerequisites
 - [OpenSSL](https://www.openssl.org/)
 - [Composer](https://getcomposer.org/)
 
+Installation via Docker
+-----------------------
+Run `docker-compose up` from the console. After the build, the authorization will be available on the 
+domain `http://localhost:180` (it is recommended to configure the local domain name 
+`http://auth.protocol.local`).
+
 Installation
--------------
+------------
 Install to the PHP of the extension [ext-mongodb](https://docs.mongodb.com/ecosystem/drivers/php/) 
 and enable `ext-openssl` in your `php.ini` file.
 
