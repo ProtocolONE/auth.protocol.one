@@ -11,23 +11,19 @@ parameters:
 
   oauth.connection.pattern: "/\/connect\/check\/(facebook|google|twitter|vkontakte|odnoklassniki)$/i"
 
-  facebook.app_id: ""
-  facebook.app_secret: ""
-  twitter.app_id: ""
-  twitter.app_secret: ""
+  facebook.app_id: "1"
+  facebook.app_secret: "test"
+  twitter.app_id: "2"
+  twitter.app_secret: "test"
   vkontakte.app_id: "2755495"
   vkontakte.app_secret: "XAD7d9qiUf0ZNEOuqTQj"
-  odnoklassniki.app_id: ""
-  odnoklassniki.key: ""
-  odnoklassniki.app_secret: ""
+  odnoklassniki.app_id: "3"
+  odnoklassniki.key: "test"
+  odnoklassniki.app_secret: "test"
 
   oauth.sources:
-#  - name: "facebook"
-#    url: "/oauth/connect/facebook"
   - name: "vkontakte"
     url: "/oauth/connect/vkontakte"
-#  - name: "odnoklassniki"
-#    url: "/oauth/connect/odnoklassniki"
 
   mailer.transport: "smtp"
   mailer.host: "relay.protocol.com"

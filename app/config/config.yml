@@ -93,32 +93,32 @@ hwi_oauth:
       vkontakte: "vkontakteUid"
       odnoklassniki: "odnoklassnikiUid"
   resource_owners:
-#    facebook:
-#      type: facebook
-#      client_id: "%facebook.app_id%"
-#      client_secret: "%facebook.app_secret%"
-#      scope: "email,user_link"
-#      options:
-#        display: popup
-#        auth_type: rerequest
+    facebook:
+      type: facebook
+      client_id: "%facebook.app_id%"
+      client_secret: "%facebook.app_secret%"
+      scope: "email,user_link"
+      options:
+        display: popup
+        auth_type: rerequest
     vkontakte:
       type: vkontakte
       client_id: "%vkontakte.app_id%"
       client_secret: "%vkontakte.app_secret%"
       scope: "email"
-#    odnoklassniki:
-#      type: odnoklassniki
-#      client_id: "%odnoklassniki.app_id%"
-#      client_secret: "%odnoklassniki.key%"
-#      scope: "email"
-#      options:
-#        application_key: "%odnoklassniki.app_secret%"
-#    twitter:
-#      type: twitter
-#      client_id: "%twitter.app_id%"
-#      client_secret: "%twitter.app_secret%"
-#      options:
-#        infos_url: https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true
+    odnoklassniki:
+      type: odnoklassniki
+      client_id: "%odnoklassniki.app_id%"
+      client_secret: "%odnoklassniki.key%"
+      scope: "email"
+      options:
+        application_key: "%odnoklassniki.app_secret%"
+    twitter:
+      type: twitter
+      client_id: "%twitter.app_id%"
+      client_secret: "%twitter.app_secret%"
+      options:
+        infos_url: https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true
 
 snc_redis:
   clients:
