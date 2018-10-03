@@ -65,7 +65,6 @@ class UserProvider extends BaseFOSUBProvider
 
         if (null === $user) {
             $user = $this->userManager->createUser();
-            $user->setEnabled(true);
 
             if (empty($email)) {
                 $email = $this->userManager

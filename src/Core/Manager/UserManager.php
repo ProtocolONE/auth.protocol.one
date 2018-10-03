@@ -133,6 +133,7 @@ class UserManager extends FOSDoctrineUserManager
     {
         /** @var User $user */
         $user = parent::createUser();
+        $user->setEnabled(true);
 
         return $user;
     }
