@@ -9,6 +9,10 @@ specify the current settings for the authentication sources there. In the file `
 change the `oauth.sources` section, only these providers will be given when calling the 
 `/api/v1/oauth/sources` method.
 
+You can configure the authorization domain for the domain `auth.protocolone.local` and use the test 
+settings from the configuration file. The list of test applications for different sources will be updated, 
+but they will all be tied to the domain `auth.protocolone.local`.
+
 ##### Example of list oAuth services
 Request headers
 
