@@ -4,9 +4,9 @@ parameters:
 
   routing.logout.target: "/"
 
-  redis.host.default: "redis://authprotocolone_redis_1:6379"
+  redis.host.default: "redis://p1-auth-redis:6379"
 
-  mongodb_server: "mongodb://auth-mongo:27017"
+  mongodb_server: "mongodb://p1-auth-mongo:27017"
   mongodb_database: "test_database"
 
   oauth.connection.pattern: "/\/connect\/check\/(facebook|google|twitter|vkontakte|odnoklassniki)$/i"
