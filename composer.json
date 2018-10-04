@@ -1,5 +1,5 @@
 {
-  "name": "p1/auth",
+  "name": "protocolone/auth",
   "description": "ProtocolOne Authorization Service",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -55,8 +55,5 @@
       "Core\\": "src/Core/",
       "Test\\": "test/src"
     }
-  },
-  "config": {
-    "secure-http": false
   }
 }
