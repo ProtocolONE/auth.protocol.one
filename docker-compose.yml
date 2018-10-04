@@ -24,7 +24,7 @@ services:
         container_name: p1-auth-mongo
         restart: always
         volumes:
-            - mongodata:/data/db
+            - p1-auth-mongo:/data/db
         ports:
             - "27017:27017"
 
@@ -35,6 +35,6 @@ services:
             - "16379:6379"
 
 volumes:
-  mongodata:
+  p1-auth-mongo:
     external: true
 
