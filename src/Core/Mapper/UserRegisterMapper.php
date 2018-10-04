@@ -60,7 +60,7 @@ class UserRegisterMapper extends AbstractRequestMapper
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -78,7 +78,7 @@ class UserRegisterMapper extends AbstractRequestMapper
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -96,7 +96,7 @@ class UserRegisterMapper extends AbstractRequestMapper
     /**
      * @return bool
      */
-    public function getReadEula(): bool
+    public function getReadEula(): ?bool
     {
         return $this->readEula;
     }
