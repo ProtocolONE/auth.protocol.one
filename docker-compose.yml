@@ -2,6 +2,7 @@ version: '3'
 services:
     p1-auth-php:
         build: .
+        container_name: p1-auth-php
         restart: always
         volumes:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
