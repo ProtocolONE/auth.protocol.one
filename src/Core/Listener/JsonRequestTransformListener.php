@@ -32,16 +32,14 @@ class JsonRequestTransformListener
             return;
         }
 
-        if (true === $this->isJsonRequest($request->getContentType())) {
-            if (!$this->transformJson($request)) {
-                $response = new JsonResponse(
-                    [
-                        'message' => 'Unable parse request'
-                    ],
-                    Response::HTTP_BAD_REQUEST
-                );
-                $event->setResponse($response);
-            }
+        if (false === $this->transformJson($request) && true === $this->isJsonRequest($request->getContentType())) {
+            $response = new JsonResponse(
+                [
+                    'message' => 'Unable parse request'
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+            $event->setResponse($response);
         }
 
         return;
@@ -51,7 +49,7 @@ class JsonRequestTransformListener
      * @param string $contentType
      * @return bool
      */
-    private function isJsonRequest($contentType)
+    private function isJsonRequest($contentType): bool
     {
         return self::CONTENT_TYPE_JSON === $contentType;
     }

@@ -31,3 +31,8 @@ services:
     class: Core\Listener\OAuthEventListener
     tags:
     - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
+
+  core.listener.acess_control_header_modify:
+    class: Core\Listener\AccessControlHeadersModify
+    tags:
+    - { name: "kernel.event_subscriber" }

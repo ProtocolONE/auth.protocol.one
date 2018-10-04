@@ -3,7 +3,6 @@
 namespace Core\Listener;
 
 use Core\Document\User;
-use Core\Document\UserCode;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\UserEvent;
