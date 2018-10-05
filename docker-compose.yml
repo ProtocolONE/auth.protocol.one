@@ -4,8 +4,6 @@ services:
         build: .
         container_name: p1-auth-php
         restart: always
-        volumes:
-            - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
 
     p1-auth-nginx:
         container_name: p1-auth-nginx
@@ -16,7 +14,6 @@ services:
         restart: always
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
-            - "./etc/ssl:/etc/ssl"
         depends_on:
             - "p1-auth-php"
 
