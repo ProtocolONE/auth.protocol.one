@@ -2,13 +2,13 @@ FROM composer AS composer
 
 WORKDIR /app
 
-COPY composer.* /app
+COPY composer.* /app/
 RUN composer install --ignore-platform-reqs --prefer-source --no-interaction
 
 FROM p1hub/p1-dev.php-fpm
 LABEL maintainer="Vadim Sabirov <vadim.sabirov@protocol.one>"
 
-COPY . /app
+COPY . /app/
 WORKDIR /app
 
 COPY --from=composer /app/vendor/ /app/vendor/
