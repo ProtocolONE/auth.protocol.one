@@ -1,7 +1,9 @@
 <?php namespace Core\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -20,6 +22,28 @@ class AccessControlHeadersModify implements EventSubscriberInterface
         return [
             KernelEvents::RESPONSE => 'onKernelResponse'
         ];
+    }
+
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
+        $request = $event->getRequest();
+
+        if ($request->getMethod() !== 'OPTIONS') {
+            return;
+        }
+
+        $response = new Response();
+
+        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization');
+        $response->headers->set('Access-Control-Max-Age', 3600);
+
+        $event->setResponse($response);
     }
 
     public function onKernelResponse(FilterResponseEvent $event)
