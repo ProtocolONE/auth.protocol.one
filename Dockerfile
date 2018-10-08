@@ -13,6 +13,6 @@ WORKDIR /app
 
 COPY --from=composer /app/vendor/ /app/vendor/
 
-RUN chown -R www-data:www-data /app
+RUN chown -R www-data:www-data /app/var
 
 CMD ["php-fpm"]
