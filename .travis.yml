@@ -1,0 +1,24 @@
+#Travis build file
+env:
+  global:
+  - secure: FRGZxVRZYbd+gJV80pwAnKHfZPYm3bH4yzC7nj3Jd+4AC+9d2yJJiHBJ8gnQYVwbZDswzecrJmk30mo+gHNyisglzrOfAfrLnWIrY+7nNBW7RXYAGLpuYHM3DBdHLWhdOXchJVpBUaFQBC6ko1UlyqYtPxFU5XiNggBOhIFRaLaplylPHreTmLF3hzIVOq58F1+1ZTeeebynEGtZbLm5yx/T/krxaQKvxl82TqaTadMoXXvnyfisyTTeyiun69H8GS7yYT1voNzC/7Y2Q59CS/NaP+VVdNI68bqM1n9U+7fei4h1FmKAtFw0PZgog1PsSWHGpvw5073CoB/9Y/I4pUrMQvhFJVfncEM+98/O7PVlwwCFlOVHCHIt4WldjPx7FzT/lcbOiyLKBHRB90nW1kdo2ehbHZFRivU3zqQockvLJ5QJbT3V6aLuzScokZ+Mc+5kZ/iGvFV8VpCwqLh++og+OoGzRjFbcBGYuqFjMQZLnOzhu3MwVqOVJrlrfU+iX7NuGs3CV3ad5Hgrx+18FlS1U/15poB5fc8hDbvNXXzrn1Y88HNtGBgFy3x4MtCgVgr/6UWJd+bhGwPdMMIU/259P6byNdtbL/7w5Nrumv18qgpkudvYIoe945QDXGxrttY3l2mPZDVKffy1uuqkm3L++0JH5KS5zrDDzdwf2Ek=
+  - secure: Cpq8Hy7q7tl+2eEw71lxyezRM+a1f6qT9xGg/JEMSPGLrgBtZIQHsukXDIFmSzAGlvz/5JCNuNG9V0sVkVCETvCIFY/xEppIMW3gqAENYMCLkgo/KnoPdcDriPSAJrl01xDevFl8kAFcufZNi3M6VLx1T/8Qofcf+XYhriJ955JLUqEEGZoYGqKpbXyacyC1muKxdZEnnhUbM2/BCIw6H/Lgjq34onlFT+QEcB9Tfmv50XxwN3HPhSCZ62tnQNc/o9QkUWrvxkpWb/pKIwA9Tl5IF/VuXIbZsOmpsz0Lg05nbL0Lk0Uv2uKK2TfaqqWjx/UINmbSoxhfEZLIYgLgDZVBz02qCdENoEIBRXCZt+FGTm3tCMvBBMzTczz9okZ/BmHETkLq9q1QNCb6pDO5ol4WonShFLAgadjg4Khv797nAieL/fQacJFwXZNTD050dRZ7cw1UZUFo53PMpqlNgnKud27aQyCNSn2rRhYlQ/TpJ6rCP/mlKAV3MJbu4/I0vFs8dPXNrcYArS3mT2w1xnyqHxzdUM6AdnjIMVLltzeInTS1VcNdGc0VovsRdxN+h3p4GV2PCMI3GRtz3urIfDGBr0qPa82TMrZNK4PcwmKLj2H+FIEMAQFnErW68C2m3pXwWV55+veX0x51HBu6lAQyqUJhN7pWIjDO+9vJRGA=
+  - REPO=p1hub/auth.protocol.one
+  
+sudo: true
+
+services:
+- docker
+
+jobs:
+  include:
+  - stage: Building image with auth.protocol.one
+    script:
+    - export TAG=`if [[ $TRAVIS_BRANCH == "master" ]]; then echo "latest"; else echo $TRAVIS_TAG; fi`
+    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    - docker build -t $REPO:$TAG .
+    - docker push $REPO
+
+# don't notify me when things fail
+notifications:
+  email: false
