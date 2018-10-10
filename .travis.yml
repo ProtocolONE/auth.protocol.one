@@ -13,7 +13,7 @@ jobs:
     - export TAG=`if [[ $TRAVIS_BRANCH == "master" ]]; then echo "latest"; else echo
       $TRAVIS_TAG; fi`
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-    - docker build -t $REPO:$TAG -t $REPO:$TRAVIS_BUILD_NUMBER .
+    - docker build -t $REPO:$TAG -t $REPO:0.0.$TRAVIS_BUILD_NUMBER .
     - docker push $REPO
 notifications:
   email: false
