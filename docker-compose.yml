@@ -3,6 +3,8 @@ services:
     p1-auth-php:
         build: .
         container_name: p1-auth-php
+        env_file:
+          - ./etc/.env        
         networks: 
           - p1devnet
         restart: always

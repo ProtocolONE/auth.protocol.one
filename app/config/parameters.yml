@@ -4,10 +4,23 @@ parameters:
 
   routing.logout.target: "/"
 
-  redis.host.default: "redis://p1-auth-redis:6379"
+  #default redis connection
+  env(REDIS_HOST): "redis://p1-auth-redis:6379"
+  
+  redis.host.default: '%env(REDIS_HOST)%'
 
-  mongodb_server: "mongodb://p1-auth-mongo:27017"
-  mongodb_database: "test_database"
+  #default values for env variables:
+  env(MONGO_SERVER): "mongodb://p1-auth-mongo:27017"
+  env(MONGO_DATABASE): "p1auth"
+  env(MONGO_USER): ""
+  env(MONGO_PASSWORD): ""
+
+  #mongo settings
+  mongodb_server: '%env(MONGO_SERVER)%'
+  mongodb_database: '%env(MONGO_DATABASE)%'
+  mongodb_user: '%env(MONGO_USER)%'
+  mongodb_password: '%env(MONGO_PASSWORD)%'
+
 
   oauth.connection.pattern: "/\/connect\/check\/(facebook|google|twitter|vkontakte|odnoklassniki)$/i"
 
