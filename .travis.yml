@@ -15,6 +15,8 @@ jobs:
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
     - docker build -t $REPO:$TAG -t $REPO:0.0.$TRAVIS_BUILD_NUMBER .
     - docker push $REPO
+after_success:
+  - curl -X POST $JURL/job/deploy-p1auth/build --user $JENKINS_LOGIN:$TOKEN
 notifications:
   email: false
   slack:
