@@ -16,8 +16,7 @@ jobs:
     - export TAG=`if [[ $TRAVIS_BRANCH == "master" ]]; then echo "latest"; else echo
       $TRAVIS_TAG; fi`
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-    - docker pull $REPO:latest
-    - docker build -t $REPO:$TAG -t $REPO:0.0.$TRAVIS_BUILD_NUMBER --cache-from $REPO:latest .    
+    - docker build -t $REPO:$TAG -t $REPO:0.0.$TRAVIS_BUILD_NUMBER .    
     - docker push $REPO
 after_success:
 - curl -X POST $JURL/job/deploy-p1auth/build --user $JENKINS_LOGIN:$TOKEN
