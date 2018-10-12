@@ -16,9 +16,20 @@ Prerequisites
 
 Installation via Docker
 -----------------------
-Run `docker-compose up` from the console. After the build, the authorization will be available on the 
+Create .env file with environment variables for containers:
+
+    copy ./etc/.env.example ./etc/.env
+
+Run in the console:
+  
+    docker-compuse up --build
+
+After the build, the authorization will be available on the 
 domain `http://localhost:8001` (it is recommended to configure the local domain name 
 `http://auth.protocol.local`).
+
+You can override default values of parameters using the ./etc/.env file.
+
 
 Installation
 ------------
@@ -56,3 +67,4 @@ The MIT License (MIT)
 
 For the whole copyright, see the [LICENSE](LICENSE) file distributed with this 
 source code.
+
