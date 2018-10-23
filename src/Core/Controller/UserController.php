@@ -89,7 +89,7 @@ class UserController extends Controller
 
     /**
      * @Route(
-     *     "/api/v1/s/user/send-email/{action}/",
+     *     "/api/v1/user/send-email/{action}/",
      *     name="api.user.secure.send_email",
      *     methods={"GET"},
      *     requirements={"action"="forgot"}
@@ -144,7 +144,7 @@ class UserController extends Controller
 
     /**
      * @Route(
-     *     "/api/v1/s/user/{action}/",
+     *     "/api/v1/user/{action}/",
      *     name="api.user.secure.verify_code",
      *     methods={"POST"},
      *     requirements={"action"="change-password"}
