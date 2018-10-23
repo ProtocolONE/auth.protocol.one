@@ -36,7 +36,7 @@ parameters:
 
   oauth.sources:
   - name: "vkontakte"
-    url: "/oauth/connect/vkontakte"
+    url: "/oauth/connect/vkontakte/"
 
   mailer.transport: "smtp"
   mailer.host: "relay.protocol.com"

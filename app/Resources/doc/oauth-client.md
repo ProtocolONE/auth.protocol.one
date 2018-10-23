@@ -2,12 +2,12 @@ Registration and authentication over oAuth
 ==========================================
 
 The user can register and log in using external accounts that implement the oAuth protocol.
-The list of available services can be requested by `/api/v1/oauth/sources`.
+The list of available services can be requested by `/api/v1/oauth/sources/`.
 
 In the configuration file `app/config/config.yml`, arrange the section` hwi_oauth.resource_owners` and 
 specify the current settings for the authentication sources there. In the file `app/config/parameters.yml`, 
 change the `oauth.sources` section, only these providers will be given when calling the 
-`/api/v1/oauth/sources` method.
+`/api/v1/oauth/sources/` method.
 
 You can configure the authorization domain for the domain `auth.protocolone.local` and use the test 
 settings from the configuration file. The list of test applications for different sources will be updated, 
@@ -16,7 +16,7 @@ but they will all be tied to the domain `auth.protocolone.local`.
 ##### Example of list oAuth services
 Request headers
 
-    GET: /api/v1/oauth/sources
+    GET: /api/v1/oauth/sources/
     Host: auth.protocolone.local
     
 Response headers
@@ -29,11 +29,11 @@ Response body
     [
         {
             "name":"facebook",
-            "url":"\/oauth\/connect\/facebook"
+            "url":"\/oauth\/connect\/facebook\/"
         },
         {
             "name":"vkontakte",
-            "url":"\/oauth\/connect\/vkontakte"
+            "url":"\/oauth\/connect\/vkontakte\/"
         }
     ]
 
@@ -47,8 +47,8 @@ The value of the parameter `_destination` must be encoded, for example, through
 for the correct transmission of control characters.
 
 For example: the `_destination` value for getting a response using PostMessage should be 
-`/api/v1/oauth/result/postmessage`. The encoded string will look like 
-`%2Fapi%2Fv1%2Foauth%2Fresult%2Fpostmessage`.
+`/api/v1/oauth/result/postmessage/`. The encoded string will look like 
+`%2Fapi%2Fv1%2Foauth%2Fresult%2Fpostmessage%2F`.
 
 When using `WebSocket`, you must pass the` wsUrl` parameter, which contains the url with 
 the `WebSocket` server, to which the response will be sent.
@@ -71,7 +71,7 @@ the following structure:
 ##### Example of oAuth authentication by VKontakte with WebSocket
 Request headers
 
-    GET: /oauth/connect/vkontakte?_destination=%2Fapi%2Fv1%2Foauth%2Fresult%2Fwebsocket%3FwsUrl%3Dwss%3A%2F%2F127.0.0.1%3A123%2F
+    GET: /oauth/connect/vkontakte/?_destination=%2Fapi%2Fv1%2Foauth%2Fresult%2Fwebsocket%2F%3FwsUrl%3Dwss%3A%2F%2F127.0.0.1%3A123%2F
     Host: auth.protocolone.local
     
 Response object (without `JSON.stringify`)

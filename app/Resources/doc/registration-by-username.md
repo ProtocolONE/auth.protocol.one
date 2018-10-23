@@ -1,7 +1,7 @@
 Registration by username and password
 =====================================
 
-To register a user, send a POST request to the address `/api/v1/user/create` and pass the 
+To register a user, send a POST request to the address `/api/v1/user/create/` and pass the 
 required parameters:
 - email `string`
 - password `string` (must contain at least 6 characters)
@@ -17,7 +17,7 @@ as well as the end time, otherwise have error message.
 ##### Example of success registration
 Request headers
 
-    POST: /api/v1/user/create
+    POST: /api/v1/user/create/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -50,7 +50,7 @@ Response body
 ##### Example of failed registration
 Request headers
 
-    POST: /api/v1/user/create
+    POST: /api/v1/user/create/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     

@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RefreshTokenController extends Controller
 {
     /**
-     * @Route("/api/v1/token/refresh/{token}", requirements={"token"="([A-z0-9]{256})"}, name="token.refresh", methods={"GET"})
+     * @Route("/api/v1/token/refresh/{token}/", requirements={"token"="([A-z0-9]{256})"}, name="token.refresh", methods={"GET"})
      *
      * @param Request $request
      * @param string $token

@@ -2,7 +2,7 @@ Captcha
 =======
 
 To get the authorization captcha, you need to make a GET request to the address 
-`/api/v1/captcha/login` and pass the required parameters:
+`/api/v1/captcha/login/` and pass the required parameters:
 - email `string`
 
 and one optional parameter
@@ -20,7 +20,7 @@ the following format:
 ##### Example of get captcha in inline mode
 Request headers
 
-    GET: /api/v1/captcha/login?email=test@domain.com&mode=inline
+    GET: /api/v1/captcha/login/?email=test@domain.com&mode=inline
     Host: auth.protocolone.local
     
 Response headers

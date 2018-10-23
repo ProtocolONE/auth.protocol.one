@@ -1,7 +1,7 @@
 Authentication by username and password
 =======================================
 
-To authenticate a user, send a POST request to the address `/api/v1/user/login` and pass the 
+To authenticate a user, send a POST request to the address `/api/v1/user/login/` and pass the 
 required parameters:
 - email `string`
 - password `string`
@@ -27,7 +27,7 @@ How to get captcha? Find out on [this page](captcha.md).
 ##### Example of success registration
 Request headers
 
-    POST: /api/v1/user/login
+    POST: /api/v1/user/login/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -60,7 +60,7 @@ Response body
 ##### Example of failed registration
 Request headers
 
-    POST: /api/v1/user/login
+    POST: /api/v1/user/login/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     

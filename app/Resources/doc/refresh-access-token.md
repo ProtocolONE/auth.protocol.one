@@ -2,9 +2,12 @@ Refresh access token
 ====================
 
 To receive or update the tokens, you must send a GET request to the address
-`/api/v1/token/refresh/{token}`. Where the `{token}` should be replaced by the content 
+`/api/v1/token/refresh/` and pass the required parameters. Where the `{token}` should be replaced by the content 
 of the refresh token. You will receive a new accessToken and a refreshToken, which will 
 need to be used in further requests. The old refreshToken will no longer work.
+
+Required parameters:
+- token `string`
 
 ### HTTP codes
 - 200 (ОК)
@@ -13,7 +16,7 @@ need to be used in further requests. The old refreshToken will no longer work.
 ##### Example of success to get access token
 Request headers
 
-    GET: /api/v1/token/refresh/asd79087vb98z7fxcvb876987d6f8g69c8v7b6xc
+    GET: /api/v1/token/refresh/?token=asd79087vb98z7fxcvb876987d6f8g69c8v7b6xc
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -38,7 +41,7 @@ Response body
 ##### Example of failed to get access token
 Request headers
 
-    GET: /api/v1/token/refresh/asd79087v
+    GET: /api/v1/token/refresh/?token=asd79087v
     Host: auth.protocolone.local
 
 Response headers

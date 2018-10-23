@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class OAuthController extends Controller
 {
     /**
-     * @Route("/api/v1/oauth/sources", name="api.oauth.sources", methods="GET")
+     * @Route("/api/v1/oauth/sources/", name="api.oauth.sources", methods="GET")
      *
      * @return JsonResponse
      */
@@ -29,7 +29,7 @@ class OAuthController extends Controller
     }
 
     /**
-     * @Route("/api/v1/oauth/result/{mode}", requirements={"mode"="(websocket|postmessage)"}, name="api.oauth.result", methods="GET")
+     * @Route("/api/v1/oauth/result/{mode}/", requirements={"mode"="(websocket|postmessage)"}, name="api.oauth.result", methods="GET")
      *
      * @param Request $request
      * @param string $mode
