@@ -1,0 +1,49 @@
+sonata_admin:
+  dashboard:
+    groups:
+      users:
+        label: Users
+        label_catalogue: Users
+        items:
+          - admin.user
+
+sonata_block:
+  blocks:
+    sonata.admin.block.admin_list:
+      contexts: [admin]
+
+sonata_doctrine_mongo_db_admin:
+  templates:
+    form:
+      - "@SonataDoctrineMongoDBAdmin/Form/form_admin_fields.html.twig"
+    filter:
+      - "@SonataDoctrineMongoDBAdmin/Form/filter_admin_fields.html.twig"
+    types:
+      list:
+        array:      "@SonataAdmin/CRUD/list_array.html.twig"
+        boolean:    "@SonataAdmin/CRUD/list_boolean.html.twig"
+        date:       "@SonataAdmin/CRUD/list_date.html.twig"
+        time:       "@SonataAdmin/CRUD/list_time.html.twig"
+        datetime:   "@SonataAdmin/CRUD/list_datetime.html.twig"
+        text:       "@SonataAdmin/CRUD/base_list_field.html.twig"
+        trans:      "@SonataAdmin/CRUD/list_trans.html.twig"
+        string:     "@SonataAdmin/CRUD/base_list_field.html.twig"
+        smallint:   "@SonataAdmin/CRUD/base_list_field.html.twig"
+        bigint:     "@SonataAdmin/CRUD/base_list_field.html.twig"
+        integer:    "@SonataAdmin/CRUD/base_list_field.html.twig"
+        decimal:    "@SonataAdmin/CRUD/base_list_field.html.twig"
+        identifier: "@SonataAdmin/CRUD/base_list_field.html.twig"
+
+      show:
+        array:      "@SonataAdmin/CRUD/show_array.html.twig"
+        boolean:    "@SonataAdmin/CRUD/show_boolean.html.twig"
+        date:       "@SonataAdmin/CRUD/show_date.html.twig"
+        time:       "@SonataAdmin/CRUD/show_time.html.twig"
+        datetime:   "@SonataAdmin/CRUD/show_datetime.html.twig"
+        text:       "@SonataAdmin/CRUD/base_show_field.html.twig"
+        trans:      "@SonataAdmin/CRUD/show_trans.html.twig"
+        string:     "@SonataAdmin/CRUD/base_show_field.html.twig"
+        smallint:   "@SonataAdmin/CRUD/base_show_field.html.twig"
+        bigint:     "@SonataAdmin/CRUD/base_show_field.html.twig"
+        integer:    "@SonataAdmin/CRUD/base_show_field.html.twig"
+        decimal:    "@SonataAdmin/CRUD/base_show_field.html.twig"

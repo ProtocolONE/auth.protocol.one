@@ -74,3 +74,16 @@ services:
     - "%jwt.ttl.refresh_token%"
     - "%jwt.ttl.access_token%"
 
+  admin.user:
+    class: Core\Admin\UserAdmin
+    arguments: [ ~, Core\Document\User, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: doctrine_mongodb, label: User }
+    public: true
+
+  admin.userauth:
+    class: Core\Admin\UserAuthAdmin
+    arguments: [ ~, Core\Document\UserAuth, ~ ]
+    tags:
+      - { name: sonata.admin, manager_type: doctrine_mongodb, label: UserAuth }
+    public: true

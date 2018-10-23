@@ -2,12 +2,12 @@ Password recovery
 =================
 
 To send the password recovery code, you need to send a GET request to the address 
-`/api/v1/s/user/send-email/forgot/` and pass the required parameters:
+`/api/v1/user/send-email/forgot/` and pass the required parameters:
 - email `string`
 
 At the specified email address will come a letter, which contains the code for changing 
 the password. To change the user's password, you must send a POST request to the address 
-`/api/v1/s/user/change-password/` and pass the required parameters:
+`/api/v1/user/change-password/` and pass the required parameters:
 - email `string`
 - password `string` (new user password)
 - code `string` (code from the letter)
@@ -19,7 +19,7 @@ the password. To change the user's password, you must send a POST request to the
 ##### Example of success change password
 Request headers
 
-    POST: /api/v1/s/user/change-password/
+    POST: /api/v1/user/change-password/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     
@@ -45,7 +45,7 @@ Response body
 ##### Example of failed change password
 Request headers
 
-    POST: /api/v1/s/user/change-password/
+    POST: /api/v1/user/change-password/
     Host: auth.protocolone.local
     Content-Type: application/json;charset=UTF-8
     

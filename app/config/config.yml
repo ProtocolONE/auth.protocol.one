@@ -4,6 +4,7 @@ imports:
 - { resource: security.yml }
 - { resource: services.yml }
 - { resource: validators.yml }
+- { resource: packages/sonata_admin.yml }
 
 framework:
   secret: "%default_secret%"

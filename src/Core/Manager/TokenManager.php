@@ -113,6 +113,10 @@ class TokenManager
      */
     public function findRefreshToken(string $token): ?UserAuth
     {
+        if (!preg_match('/([A-z0-9]{256})/', $token)) {
+            return null;
+        }
+
         return $this->objectManager->getRepository(UserAuth::class)->findOneBy(['token' => $token]);
     }
 

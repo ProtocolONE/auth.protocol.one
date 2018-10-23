@@ -44,3 +44,17 @@ oauth_sources:
   methods: [ GET ]
   controller: core.controller.oauth:sourcesAction
 
+admin_dashboard:
+  path: /admin
+  defaults: { _controller: SonataAdminBundle:Core:dashboard }
+
+admin_area:
+  resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+  prefix: /admin
+
+_sonata_admin:
+  resource: .
+  type: sonata_admin
+  prefix: /admin
+
+

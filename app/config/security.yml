@@ -1,12 +1,24 @@
 security:
   encoders:
     FOS\UserBundle\Model\UserInterface: bcrypt
+    Symfony\Component\Security\Core\User\User: plaintext
 
   providers:
     fos_userbundle:
       id: fos_user.user_provider.username
+    in_memory:
+      memory:
+        users:
+          demo:
+            password: demo
+            roles: 'ROLE_ADMIN'
 
   firewalls:
+    admin:
+      pattern: ^/admin
+      http_basic: true
+      provider: in_memory
+
     secured_area:
       pattern: ^/
       anonymous: ~
@@ -59,3 +71,4 @@ security:
   - { path: ^/api/v1/s/user/send-email/forgot, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
   - { path: ^/api/v1/s/user/change-password, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
   - { path: ^/api/v1/s/.*, roles: [IS_AUTHENTICATED_FULLY] }
+  - { path: ^/admin, roles: ROLE_ADMIN }

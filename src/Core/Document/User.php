@@ -75,6 +75,12 @@ class User extends BaseUser
      */
     protected $avatar;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->createdAt = new \DateTime();
+    }
+
     /**
      * @param string $username
      * @return User
@@ -149,5 +155,13 @@ class User extends BaseUser
     {
         $this->confirmationToken = $confirmationToken;
         return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
     }
 }
