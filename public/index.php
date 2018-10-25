@@ -7,9 +7,6 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../app/autoload.php';
 require __DIR__ . '/../app/AppKernel.php';
 
-//Set the environment and debugging mode manually, if they are not installed in the environment or need to be redefined
-//putenv(sprintf('%s=%s', SYMFONY_ENV, 'dev'));
-//putenv(sprintf('%s=%s', SYMFONY_DEBUG, '1'));
 $environment = SYMFONY_ENV_DEV === getenv(SYMFONY_ENV) ? SYMFONY_ENV_DEV : SYMFONY_ENV_PROD;
 $isDev = SYMFONY_ENV_DEV === $environment;
 $debug = $isDev ? true : false;
