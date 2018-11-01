@@ -1,0 +1,39 @@
+@startuml
+
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 1
+title Authenticate over iFrame with login and password\nUser not exists
+
+actor User
+participant Site
+participant "CentralAuth Server" as CAS
+participant "CentralAuth API" as CAA
+participant "BruteForce" as BF_MS <<MicroService>>
+participant "UserInfo" as UI_MS <<MicroService>>
+participant DataBase as DB
+participant Redis
+
+User -> Site : Request authenticate
+Site -> CAS : Init iFrame
+CAS -> User : Show iFrame
+
+User -> CAA : Submit login form
+
+CAA -> BF_MS : Check the status of\nblocking by IP or login
+BF_MS -> DB : Get brutforce settings for space/app
+DB -> BF_MS
+BF_MS -> Redis : Get current counters
+Redis -> BF_MS
+
+hnote over BF_MS: Calculate result
+
+BF_MS -> CAA : None bruteforce reaction
+CAA -> UI_MS : Check login and password
+UI_MS -> DB : Get space/app settings
+DB -> UI_MS
+UI_MS -> DB : Get user crypt password by login
+DB -> UI_MS
+UI_MS -> CAA : User no found
+CAA -> User : Show error message
+
+@enduml

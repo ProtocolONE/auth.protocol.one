@@ -160,7 +160,7 @@ class User extends BaseUser
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }

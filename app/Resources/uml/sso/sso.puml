@@ -1,0 +1,37 @@
+@startuml
+
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 1
+title Single Sign-On
+
+actor User
+participant Site
+participant "CentralAuth Server" as CAS
+participant "CentralAuth API" as CAA
+participant "User Info" as UI_MS <<MicroService>>
+participant "Crypt" as Crypt_MS <<MicroService>>
+
+User -> Site : Request authenticate
+Site -> CAS : Init iFrame
+
+hnote over CAS: Check exists auth cookie
+
+CAS --> User : Cookie not exists, show iFrame with login options\nSee **auth over iframe**
+
+CAS -> CAA : Sent auth cookie for validate
+CAA -> Crypt_MS : Decrypt cookie
+Crypt_MS -> CAA
+CAA -> CAA : Validate cookie data
+
+alt Data is invalid
+    CAA -> CAS : Return empty result
+    CAS -> User : Show auth options
+else
+    CAA -> Crypt_MS : Request new cookie
+    Crypt_MS -> CAA
+    CAA -> CAS : Set new cookie
+    CAS -> Site : Set success authentication
+    Site -> User : Redirect to destination address\nor refresh page and send auth\ntoken via url parameter
+end
+
+@enduml
