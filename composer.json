@@ -23,7 +23,6 @@
     "ext-mongo": "*",
     "symfony/symfony": "~3.0",
     "twig/twig": "2.4.4",
-    "symfony/web-profiler-bundle": "3.4.4",
     "sensio/framework-extra-bundle": "^5.1",
     "sensio/distribution-bundle": "^5.0",
     "hwi/oauth-bundle": "^0.6.0",
