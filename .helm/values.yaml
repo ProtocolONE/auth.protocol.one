@@ -6,6 +6,9 @@ enableRedis: false
 enableMongo: false
 enableCertIssuer: false
 
+# to release to production environment set prodRelease = true
+prodRelease: false
+
 ingress:
   hostname: auth.tst.protocol.one
   path: /

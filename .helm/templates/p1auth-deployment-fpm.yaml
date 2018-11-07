@@ -58,20 +58,20 @@ spec:
           - name: MONGO_SERVER
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mongo-connection
+                name: {{ .Release.Name }}-mongo
                 key: MONGO_SERVER
           - name: MONGO_DATABASE
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mongo-connection
+                name: {{ .Release.Name }}-mongo
                 key: MONGO_DATABASE
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mongo-connection
+                name: {{ .Release.Name }}-mongo
                 key: MONGO_USER
           - name: MONGO_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-mongo-connection
-                key: MONGO_PASSWORD        
+                name: {{ .Release.Name }}-mongo
+                key: MONGO_PASSWORD
