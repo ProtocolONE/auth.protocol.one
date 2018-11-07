@@ -38,7 +38,7 @@ spec:
     spec:
       {{- if $deployment.configMap }}
       volumes:
-      - name: {{ $deploymentName }}
+      - name: {{ $deploymentName }}-configmap
         configMap:
           name: {{ $deploymentName }}
       {{- end }}
@@ -56,7 +56,7 @@ spec:
           failureThreshold: 2
         {{- if $deployment.configMap }}
         volumeMounts:
-        - name: {{ $deploymentName }}
+        - name: {{ $deploymentName }}-configmap
           mountPath: {{ $deployment.configMap.mountPath }}
           readOnly: true
         {{- end }}

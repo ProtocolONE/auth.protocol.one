@@ -39,7 +39,7 @@ spec:
     spec:
       {{- if $deployment.configMap }}
       volumes:
-      - name: {{ $deploymentName }}
+      - name: {{ $deploymentName }}-configmap
         configMap:
           name: {{ $deploymentName }}
       {{- end }}
@@ -50,7 +50,28 @@ spec:
         - containerPort: {{ $deployment.port }}
         {{- if $deployment.configMap }}
         volumeMounts:
-        - name: {{ $deploymentName }}
+        - name: {{ $deploymentName }}-configmap
           mountPath: {{ $deployment.configMap.mountPath }}
           readOnly: true
         {{- end }}
+        env:
+          - name: MONGO_SERVER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-mongo-connection
+                key: MONGO_SERVER
+          - name: MONGO_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-mongo-connection
+                key: MONGO_DATABASE
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-mongo-connection
+                key: MONGO_USER
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-mongo-connection
+                key: MONGO_PASSWORD        
