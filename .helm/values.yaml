@@ -4,7 +4,7 @@
 
 enableRedis: false
 enableMongo: false
-enableCertIssuer: false
+enableCertIssuer: true
 
 # to release to production environment set prodRelease = true
 prodRelease: false
