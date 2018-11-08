@@ -98,7 +98,7 @@ spec:
         image: library/mongo:4.1.3
         {{- if .Values.prodRelease }}
         args: ["--auth"]
-        {{- end }}}}
+        {{- end }}
         ports:
         - containerPort: 27017
         volumeMounts:
