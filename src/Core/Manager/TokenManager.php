@@ -173,7 +173,7 @@ class TokenManager
         /**
          * @var \Core\Document\Repository\UserAgentRepository $repository
          */
-        $ua = $this->requestStack->getCurrentRequest()->headers->get('User-Agent');
+        $ua = (string)$this->requestStack->getCurrentRequest()->headers->get('User-Agent');
         $repository = $this->objectManager->getRepository(UserAgent::class);
         $userAgent = $repository->findOneBy(['value' => $ua]);
 
