@@ -9,6 +9,9 @@ env:
 sudo: true
 services:
 - docker
+branches:
+  only:
+    - master
 jobs:
   include:
   - stage: Building image with auth.protocol.one
