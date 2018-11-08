@@ -1,30 +1,34 @@
 {{- if .Values.enableRedis }}
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: p1auth-redis
-  labels:
-    app: auth
-    role: redis
-spec:
-  persistentVolumeReclaimPolicy: Retain
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: 172.29.13.72
-    path: "/k8sdata/p1auth-redis"
+# kind: PersistentVolume
+# apiVersion: v1
+# metadata:
+#   name: {{ .Release.Name }}-redis
+#   labels:
+#     app: {{ .Chart.Name }}
+#     release: {{ .Release.Name }}
+#     heritage: {{ .Release.Service }}
+#     role: redis
+# spec:
+#   persistentVolumeReclaimPolicy: Retain
+#   capacity:
+#     storage: 2Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   nfs:
+#     server: 172.29.13.72
+#     path: "/k8sdata/{{ .Release.Name }}-redis"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: p1auth-redis
+  name: {{ .Release.Name }}-redis
 spec:
   storageClassName: ""
   selector:
     matchLabels:
-      app: "auth"  
+      app: {{ .Chart.Name }}
+      release: {{ .Release.Name }}
+      heritage: {{ .Release.Service }}
       role: "redis"  
   accessModes:
     - ReadWriteOnce
@@ -35,40 +39,48 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: p1-auth-redis
+  name: {{ .Release.Name }}-redis
   labels:
-    app: auth
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
     role: redis
 spec:
   ports:
   - port: 6379
     protocol: TCP
   selector:
-    app: auth
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
     role: redis
 ---
 apiVersion: apps/v1
 #kind: StatefulSet
 kind: Deployment
 metadata:
-  name: p1auth-redis
+  name: {{ .Release.Name }}-redis
 spec:
 #  serviceName: mongo
   selector:
     matchLabels:
-      app: auth
+      app: {{ .Chart.Name }}
+      release: {{ .Release.Name }}
+      heritage: {{ .Release.Service }}
       role: redis
   replicas: 1
   template:
     metadata:
       labels:
-        app: auth
+        app: {{ .Chart.Name }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
         role: redis
     spec:
       volumes:
-      - name: p1auth-redis
+      - name: {{ .Release.Name }}-redis
         persistentVolumeClaim:
-          claimName: p1auth-redis
+          claimName: {{ .Release.Name }}-redis
       containers:
       - name: redis
         image: redis:3.2.12-alpine
@@ -76,7 +88,7 @@ spec:
         ports:
         - containerPort: 6379
         volumeMounts:
-        - name: p1auth-redis
+        - name: {{ .Release.Name }}-redis
           mountPath: /data
           readOnly: false
 {{- end }}
