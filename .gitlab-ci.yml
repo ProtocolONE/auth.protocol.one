@@ -32,6 +32,7 @@ deploy_production:
       -v $PWD/.helm:/.helm
       -e "K8S_API_URL=$K8S_API_URL"
       -e "K8S_CI_TOKEN=$K8S_CI_TOKEN"
+      -e "P1_PROJECT=$P1_PROJECT"
       -e "CI_PROJECT_PATH_SLUG=$CI_PROJECT_PATH_SLUG"
       -e "CI_ENVIRONMENT_NAME=$CI_ENVIRONMENT_NAME"
       -e "CI_REGISTRY=$CI_REGISTRY"
@@ -49,13 +50,12 @@ deploy_production:
       kubectl config set-context ci --cluster=k8s --user=ci &&
       kubectl config use-context ci &&
       helm init --client-only &&
-      helm upgrade --install $CI_PROJECT_PATH_SLUG .helm
+      helm upgrade --install $P1_PROJECT .helm
         --set backend.image=$CI_REGISTRY_IMAGE
         --set backend.imageTag=$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
         --wait
-        --timeout 180
-        --namespace $CI_PROJECT_PATH_SLUG-$CI_ENVIRONMENT_NAME ||
-      (helm history --max 2 $CI_PROJECT_PATH_SLUG | head -n 2 | tail -n 1 | awk "{print \$1}" | xargs helm rollback $CI_PROJECT_PATH_SLUG && exit 1)'
+        --timeout 180 ||
+      (helm history --max 2 $P1_PROJECT | head -n 2 | tail -n 1 | awk "{print \$1}" | xargs helm rollback $P1_PROJECT && exit 1)'
   only:
   - master
   when: manual
