@@ -1,4 +1,16 @@
 {{- if .Values.enableMongo }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-mongo
+type: Opaque
+data:
+  MONGO_SERVER: {{ printf "mongodb://%s-mongo:27017" .Release.Name | b64enc }}
+  MONGO_DATABASE: {{ printf "p1auth" | b64enc }}
+  MONGO_USER: {{ printf "root" | b64enc }}
+  MONGO_PASSWORD: {{ printf "strongpassword#" | b64enc }}
+---  
+## PV is commented out to use dynamic nfs provisions in test env
 # kind: PersistentVolume
 # apiVersion: v1
 # metadata:
@@ -22,12 +34,13 @@ apiVersion: v1
 metadata:
   name: {{ .Release.Name }}-mongo
 spec:
-  storageClassName: ""
-  selector:
-    matchLabels:
-      app: {{ .Chart.Name }}
-      release: {{ .Release.Name }}
-      heritage: {{ .Release.Service }}
+## selector and storage class are commented out to use dynamic nfs provisions in test env
+#  storageClassName: ""
+#  selector:
+#    matchLabels:
+#      app: {{ .Chart.Name }}
+#      release: {{ .Release.Name }}
+#      heritage: {{ .Release.Service }}
   accessModes:
     - ReadWriteOnce
   resources:
