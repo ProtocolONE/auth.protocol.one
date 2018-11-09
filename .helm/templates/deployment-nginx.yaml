@@ -11,7 +11,7 @@ metadata:
     heritage: {{ .Release.Service }}
     role: {{ $deployment.role }}
   annotations: 
-    checksum/config: {{ include (printf "%s/%s-configmap-%s.yaml" $.Template.BasePath .Chart.Name $deployment.name) . | sha256sum }}
+    #checksum/config: {{ include (printf "%s/%s-configmap-%s.yaml" $.Template.BasePath .Chart.Name $deployment.name) . | sha256sum }}
     released: {{ .Release.Time}}    
 spec:
   selector:
