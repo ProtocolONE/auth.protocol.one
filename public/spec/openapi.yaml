@@ -75,7 +75,12 @@ paths:
       responses:
         '302':
           description: >-
-            Redirect to the URL defined in the parameter `redirect_uri`. If URL is not specified or not allowed user will be redirect to login page.
+            Redirect to the URL defined in the parameter `redirect_uri`.
+            If URL is not specified or not allowed user will be redirect to
+            login page. Adds to the request the parameter `auth_one_ott` with
+            the value of a one-time token. Allows it to receive a one-time user
+            Access Token value. For example:
+            `https://YOUR_DOMAIN/page?auth_one_ott=zcv987z...987dre987zxc`
       security:
         - CookieAuth: []
     description: >-
@@ -83,90 +88,7 @@ paths:
       your identity provider. It does not log you out of your application! This
       is something that you must implement on your side. You need to log out the
       user from your application by clearing their session.
-  /passwordless/start:
-    post:
-      tags:
-      - Passwordless
-      summary: 'Send a verification code using email or sms'
-      description:
-      parameters:
-        - name: client_id
-          in: query
-          required: true
-          schema:
-            type: string
-          description: 'The `client_id` of your application'
-        - name: connection
-          in: query
-          required: true
-          schema:
-            type: string
-          description: >-
-            How to send the code to the user. Use `email` to send the
-            code using email, or `sms` to use SMS
-      operationId: passwordlessStart
-      responses:
-        '200':
-          description: Return One-Time Token for verification method
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OneTimeToken'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security: []
-  /passwordless/verify:
-    post:
-      tags:
-      - Passwordless
-      summary: 'Verify passwordless authentication code'
-      parameters:
-        - name: client_id
-          in: query
-          required: true
-          schema:
-            type: string
-          description: 'The `client_id` of your application'
-        - name: connection
-          in: query
-          required: true
-          schema:
-            type: string
-          description: >-
-            How to send the code to the user. Use `email` to send the
-            code using email, or `sms` to use SMS
-        - name: verification_code
-          in: query
-          required: true
-          schema:
-            type: string
-          description: 'Verification code from sms or email (One-Time Code)'
-        - name: token
-          in: query
-          required: true
-          schema:
-            type: string
-          description: 'One-Time Token'
-      operationId: passwordlessVerify
-      responses:
-        '200':
-          description: 'User Access Token'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/JWTToken'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security: []
-  /user/info:
+  /userinfo:
     get:
       tags:
       - Get User Info
@@ -217,7 +139,7 @@ paths:
       operationId: tokenRefresh
       responses:
         '200':
-          description: 'Return user access tokens.'
+          description: 'User Access Tokens.'
           content:
             application/json:
               schema:
@@ -230,6 +152,40 @@ paths:
                 $ref: '#/components/schemas/Error'
       security:
         - BearerAuth: []
+  /token/ott:
+    get:
+      tags:
+      - JWT Token
+      summary: ''
+      description: 'Get user Access Token by One-Time Token'
+      parameters:
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'The `client_id` of your application'
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'One-Time Token (for example, the parameter `auth_one_ott` passed during authentication with redirect)'
+      operationId: tokenRefresh
+      responses:
+        '200':
+          description: 'User Access Tokens'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTToken'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
   /dbconnections/change_password:
     post:
       tags:
@@ -407,11 +363,11 @@ paths:
       operationId: authorize
       responses:
         '302':
-          description: 'Redirect to destination URI with One-Time Token'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OneTimeToken'
+          description: >-
+            Redirect to destination URI with One-Time Token. Adds to the request
+            the parameter `auth_one_ott` with the value of a one-time token.
+            Allows it to receive a one-time user Access Token value. For example:
+            `https://YOUR_DOMAIN/page?auth_one_ott=zcv987z...987dre987zxc`
         '400':
           description: Bad Request
           content:
@@ -457,6 +413,89 @@ paths:
             type: string
           description: 'Captcha'
       operationId: login
+      responses:
+        '200':
+          description: 'User Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTToken'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
+  /passwordless/start:
+    post:
+      tags:
+      - Passwordless
+      summary: 'Send a verification code using email or sms'
+      description:
+      parameters:
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'The `client_id` of your application'
+        - name: connection
+          in: query
+          required: true
+          schema:
+            type: string
+          description: >-
+            How to send the code to the user. Use `email` to send the
+            code using email, or `sms` to use SMS
+      operationId: passwordlessStart
+      responses:
+        '200':
+          description: 'Return One-Time Token for verification method'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneTimeToken'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
+  /passwordless/verify:
+    post:
+      tags:
+      - Passwordless
+      summary: 'Verify passwordless authentication code'
+      parameters:
+        - name: client_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'The `client_id` of your application'
+        - name: connection
+          in: query
+          required: true
+          schema:
+            type: string
+          description: >-
+            How to send the code to the user. Use `email` to send the
+            code using email, or `sms` to use SMS
+        - name: verification_code
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'Verification code from sms or email (One-Time Code)'
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+          description: 'One-Time Token'
+      operationId: passwordlessVerify
       responses:
         '200':
           description: 'User Access Token'
