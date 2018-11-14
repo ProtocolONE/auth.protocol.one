@@ -53,6 +53,8 @@ deploy_production:
       helm upgrade --install $P1_PROJECT .helm
         --set backend.image=$CI_REGISTRY_IMAGE
         --set backend.imageTag=$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
+        --set frontend.image=$CI_REGISTRY_IMAGE
+        --set frontend.imageTag="$CI_COMMIT_REF_SLUG"-static.$CI_PIPELINE_ID
         --wait
         --debug
         --timeout 180 ||
@@ -97,6 +99,8 @@ review:
       helm upgrade --install $CI_ENVIRONMENT_SLUG .helm
         --set backend.image=$CI_REGISTRY_IMAGE
         --set backend.imageTag=$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
+        --set frontend.image=$CI_REGISTRY_IMAGE
+        --set frontend.imageTag="$CI_COMMIT_REF_SLUG"-static.$CI_PIPELINE_ID
         --set replicas=1
         --set enableMongo=true
         --set ingress.hostname=$CI_ENVIRONMENT_SLUG.tst.protocol.one
