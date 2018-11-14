@@ -75,3 +75,8 @@ spec:
               secretKeyRef:
                 name: {{ .Release.Name }}-mongo
                 key: MONGO_PASSWORD
+          - name: REDIS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name}}-redis
+                key: REDIS_HOST

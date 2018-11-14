@@ -1,4 +1,12 @@
 {{- if .Values.enableRedis }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-redis
+type: Opaque
+data:
+  REDIS_HOST: {{ printf "redis://%s-redis:6379" .Release.Name | b64enc }}
+---  
 # kind: PersistentVolume
 # apiVersion: v1
 # metadata:

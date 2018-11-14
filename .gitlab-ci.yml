@@ -54,11 +54,12 @@ deploy_production:
         --set backend.image=$CI_REGISTRY_IMAGE
         --set backend.imageTag=$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
         --wait
+        --debug
         --timeout 180 ||
       (helm history --max 2 $P1_PROJECT | head -n 2 | tail -n 1 | awk "{print \$1}" | xargs helm rollback $P1_PROJECT && exit 1)'
   only:
   - master
-  when: manual
+  when: on_success
 
 
 review:
@@ -100,6 +101,7 @@ review:
         --set enableMongo=true
         --set ingress.hostname=$CI_ENVIRONMENT_SLUG.tst.protocol.one
         --wait
+        --debug
         --timeout 180
         --namespace $CI_ENVIRONMENT_SLUG'
   only:
@@ -132,7 +134,7 @@ stop_review:
       kubectl config set-context ci --cluster=k8s --user=ci &&
       kubectl config use-context ci &&
       helm init --client-only &&
-      helm delete --purge $CI_ENVIRONMENT_SLUG &&
+      helm delete --purge --debug $CI_ENVIRONMENT_SLUG &&
       kubectl delete namespace $CI_ENVIRONMENT_SLUG'
   environment:
     name: $P1_PROJECT-$CI_COMMIT_REF_NAME
