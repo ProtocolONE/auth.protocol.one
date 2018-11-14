@@ -3,9 +3,9 @@ servers:
 # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/ProtocolOne/Authentication/1.0.0
-  - url: 'https://auth.protocol.one'
+  - url: 'https://auth-one.protocol.one'
 info:
-  description: Basic methods for registration and authentication
+  description: The Authentication API enables you to manage all aspects of user identity when you use Auth-One. It offers endpoints so your users can log in, sign up, log out, access APIs, and more.
   version: 1.0.0
   title: ProtocolOne Authentication API
   termsOfService: ''
@@ -17,11 +17,11 @@ tags:
   - name: Signup
     description: Create a new user
   - name: Login
-    description: ''
+    description: 'Authenticate user by login and password or by external providers'
   - name: Logout
     description: Use this endpoint to logout a user
   - name: Passwordless
-    description: One-time code sent through email or SMS, every time the user logs in
+    description: One-Time Code sent through email or SMS, every time the user logs in
   - name: Change Password
     description: Send message to change password
   - name: Get User Info
@@ -35,17 +35,14 @@ paths:
     get:
       tags:
         - Logout
-      summary: Clears all single sign-on cookies set by Auth1 for the user
+      summary: Clears all single sign-on cookies set by Auth-One for the user
       description: >-
         Redirecting the user to this URL clears all single sign-on cookies set
-        by Auth1 for the user.<br><br>The Auth1 logout endpoint logs you out
-        from Auth1 and, optionally, from your identity provider. It does not log
+        by Auth-One for the user.<br><br>The Auth-One logout endpoint logs you out
+        from Auth-One and, optionally, from your identity provider. It does not log
         you out of your application! This is something that you must implement
         on your side. You need to log out the user from your application by
-        clearing their session.<br><br>SAML logout is configured differently
-        depending on whether Auth1 acts as the Service Provider (i.e. when you
-        create a SAML connection) or when Auth1 acts as the Identity Provider
-        (i.e. when you have an application with the SAML2 Web App addon).
+        clearing their session.
       operationId: logout
       parameters:
         - name: redirect_uri
@@ -57,14 +54,14 @@ paths:
             being passed in.<br><br>You will need to add the non-encoded
             `redirect_uri` URL as an Allowed Logout URLs in the application
             settings.
-          required: false
+          required: true
           schema:
             type: integer
             format: int64
           allowEmptyValue: false
         - name: client_id
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: >-
@@ -76,16 +73,13 @@ paths:
             Allowed Logout URLs set at the tenant level (see Setting Allowed
             Logout URLs at the Space Level)
       responses:
-        '200':
-          description: Return `OK` if `returnTo` is not installed or not allowed.
         '302':
           description: >-
-            Redirect to the URL defined in the parameter `returnTo` if it is
-            specified and allowed.
+            Redirect to the URL defined in the parameter `redirect_uri`. If URL is not specified or not allowed user will be redirect to login page.
       security:
         - CookieAuth: []
     description: >-
-      The Auth1 logout endpoint logs you out from Auth1 and, optionally, from
+      The Auth-One logout endpoint logs you out from Auth-One and, optionally, from
       your identity provider. It does not log you out of your application! This
       is something that you must implement on your side. You need to log out the
       user from your application by clearing their session.
@@ -93,9 +87,8 @@ paths:
     post:
       tags:
       - Passwordless
-      summary: ''
-      description: >-
-        Send a verification code using email or send.
+      summary: 'Send a verification code using email or sms'
+      description:
       parameters:
         - name: client_id
           in: query
@@ -114,7 +107,7 @@ paths:
       operationId: passwordlessStart
       responses:
         '200':
-          description: Return One-time token for verification method
+          description: Return One-Time Token for verification method
           content:
             application/json:
               schema:
@@ -125,12 +118,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /passwordless/verify:
     post:
       tags:
       - Passwordless
-      summary: ''
-      description: 'Verify passwordless authentication code'
+      summary: 'Verify passwordless authentication code'
       parameters:
         - name: client_id
           in: query
@@ -151,17 +144,17 @@ paths:
           required: true
           schema:
             type: string
-          description: 'Verification code from sms or email (One-time password)'
+          description: 'Verification code from sms or email (One-Time Code)'
         - name: token
           in: query
-          required: false
+          required: true
           schema:
             type: string
-          description: 'One-time token'
+          description: 'One-Time Token'
       operationId: passwordlessVerify
       responses:
         '200':
-          description: 'Return user Access Token'
+          description: 'User Access Token'
           content:
             application/json:
               schema:
@@ -172,6 +165,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /user/info:
     get:
       tags:
@@ -241,7 +235,7 @@ paths:
       tags:
       - Change Password
       summary: ''
-      description: 'Given a user''s `email` address and a `connection`, Auth1 will send a change password email.'
+      description: 'Given a user''s `email` address and a `connection`, Auth-One will send a verification code to the email address.'
       parameters:
         - name: client_id
           in: query
@@ -257,14 +251,14 @@ paths:
           description: 'The name of the database connection configured to your client'
         - name: email
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The user''s email address'
       operationId: changePasswordStart
       responses:
         '200':
-          description: Return One-time token for verification method
+          description: Return One-Time Token for verification method
           content:
             application/json:
               schema:
@@ -275,6 +269,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /dbconnections/change_password/verify:
     post:
       tags:
@@ -302,20 +297,20 @@ paths:
           description: 'Verification code from email'
         - name: token
           in: query
-          required: false
+          required: true
           schema:
             type: string
-          description: 'One-time token'
+          description: 'One-Time Token'
         - name: password
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The new password'
       operationId: changePasswordVerify
       responses:
         '200':
-          description: 'Return user Access Token'
+          description: 'User Access Token'
           content:
             application/json:
               schema:
@@ -326,12 +321,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /signup:
     post:
       tags:
       - Signup
-      summary: ''
-      description: 'Create a new user using database connection.'
+      summary: 'Create a new user using database connection'
       parameters:
         - name: client_id
           in: query
@@ -347,20 +342,20 @@ paths:
           description: 'The name of the database connection configured to your client'
         - name: email
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The user''s email address'
         - name: password
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The user''s desired password'
       operationId: signup
       responses:
         '200':
-          description: 'Return user Access Token'
+          description: 'User Access Token'
           content:
             application/json:
               schema:
@@ -371,11 +366,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /authorize:
     get:
       tags:
       - Login
-      summary: ''
+      summary: 'Authenticate by social provider'
       description: 'Use this endpoint to authenticate a user with a social. It will return a 302 redirect to the social provider specified in connection. The `redirect_uri` value must be specified as a valid callback URL under your Application''s Settings.'
       parameters:
         - name: client_id
@@ -411,7 +407,7 @@ paths:
       operationId: authorize
       responses:
         '302':
-          description: 'Redirect to destination URI with OTP'
+          description: 'Redirect to destination URI with One-Time Token'
           content:
             application/json:
               schema:
@@ -422,11 +418,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /login:
     post:
       tags:
       - Login
-      summary: ''
+      summary: 'Authenticate by login and password'
       description: 'Use this endpoint to authenticate a user with database connection.'
       parameters:
         - name: client_id
@@ -443,13 +440,13 @@ paths:
           description: 'The name of the connection configured to your application'
         - name: email
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The user''s email address'
         - name: password
           in: query
-          required: false
+          required: true
           schema:
             type: string
           description: 'The user''s desired password'
@@ -462,7 +459,7 @@ paths:
       operationId: login
       responses:
         '200':
-          description: 'Get user Access Token'
+          description: 'User Access Token'
           content:
             application/json:
               schema:
@@ -473,12 +470,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '403':
-          description: MFA required
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+      security: []
   /mfa/challenge:
     post:
       tags:
@@ -524,6 +516,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /mfa/verify:
     post:
       tags:
@@ -569,6 +562,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      security: []
   /mfa/add:
     post:
       tags:
@@ -613,7 +607,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NewMFA'
+                $ref: '#/components/schemas/MFARequest'
         '400':
           description: Bad Request
           content:
@@ -622,9 +616,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       security:
         - BearerAuth: []
-externalDocs:
-  description: ''
-  url: 'https://auth.protocol.one/openapi'
 components:
   schemas:
     Error:
@@ -632,14 +623,18 @@ components:
       properties:
         error:
           type: string
-          example: bad_request
+          example: Bad request
+          description: For the signup and login
         error_message:
           type: string
           example: The connection was not found
-        mfa_request:
-          type: string
-          example: abcde...dasg
-          description: This is an optional parameter and appears when you need to go through multi-factor authentication. The parameter value is a token that should be transferred to the MFA method.
+        payload:
+          type: object
+          example: '{"mfa_request": "kjzxcv8s9zx98lczvw700zx"}'
+          properties:
+            mfa_request:
+              type: string
+              description: This is an optional property and appears when you need to go through multi-factor authentication. The parameter value is a `mfa_token` that should be transferred to the MFA methods.
     User:
       type: object
       properties:
@@ -664,17 +659,19 @@ components:
         access_token:
           type: string
           example: oDnPKc1a...vWE36Lh
+          description: JWT token
         expires_in:
           type: integer
           format: int32
           example: 3600
+          description: UNIX timestamp
         id_token:
           type: string
           description: Refresh token
           example: oDnPKc1a...vWE36Lh
-    OneTimePassword:
+    OneTimeCode:
       type: object
-      description: 'One-Time Password'
+      description: 'One-Time Code'
       properties:
         token:
           type: integer
@@ -686,7 +683,7 @@ components:
         token:
           type: string
           example: oDnPKc1a...vWE36Lh
-    NewMFA:
+    MFARequest:
       type: object
       properties:
         secret:
@@ -714,7 +711,7 @@ components:
     CookieAuth:
       type: apiKey
       in: cookie
-      name: X-AUTH1-TOKEN-{CLIENT_ID}
+      name: X-AUTH-ONE-TOKEN-{CLIENT_ID}
     BearerAuth:
       type: http
       scheme: bearer
