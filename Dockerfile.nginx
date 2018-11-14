@@ -1,0 +1,7 @@
+FROM nginx:1.15.4
+LABEL maintainer="Vadim Sabirov <vadim.sabirov@protocol.one>"
+
+
+COPY ./public /app/public
+
+WORKDIR /app/public
