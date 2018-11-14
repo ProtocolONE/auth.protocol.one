@@ -623,18 +623,12 @@ components:
       properties:
         error:
           type: string
-          example: Bad request
-          description: For the signup and login
+          example: bad_request
+          description: Error code (for example: `mfa_request` for the MFA scenario or `password` for form field)
         error_message:
           type: string
           example: The connection was not found
-        payload:
-          type: object
-          example: '{"mfa_request": "kjzxcv8s9zx98lczvw700zx"}'
-          properties:
-            mfa_request:
-              type: string
-              description: This is an optional property and appears when you need to go through multi-factor authentication. The parameter value is a `mfa_token` that should be transferred to the MFA methods.
+		  description: Text of error or value for specific property (e.g. MFA one-time token value)
     User:
       type: object
       properties:
