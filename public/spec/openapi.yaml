@@ -624,11 +624,11 @@ components:
         error:
           type: string
           example: bad_request
-          description: Error code (for example: `mfa_request` for the MFA scenario or `password` for form field)
+          description: 'Error code (for example: `mfa_request` for the MFA scenario or `password` for form field)'
         error_message:
           type: string
           example: The connection was not found
-		  description: Text of error or value for specific property (e.g. MFA one-time token value)
+          description: 'Text of error or value for specific property (e.g. MFA one-time token value)'
     User:
       type: object
       properties:
