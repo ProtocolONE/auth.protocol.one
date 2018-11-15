@@ -171,7 +171,7 @@ paths:
           schema:
             type: string
           description: 'One-Time Token (for example, the parameter `auth_one_ott` passed during authentication with redirect)'
-      operationId: tokenRefresh
+      operationId: tokenOTT
       responses:
         '200':
           description: 'User Access Tokens'
