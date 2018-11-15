@@ -380,6 +380,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '423':
+          description: 'Authentication is temporarily locked due to a lot of bad authentications. The `error` will be the value `login_temporary_locked`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '428':
+          description: 'Captcha required. The `error` will be the value `login_captcha_required`.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security: []
   /authorize:
     get:
