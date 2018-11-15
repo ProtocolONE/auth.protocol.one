@@ -374,6 +374,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          description: 'MFA required. The `error` will be the value `mfa_required` and the `error_message` will be contains token.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security: []
   /authorize:
     get:
