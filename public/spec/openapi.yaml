@@ -438,7 +438,7 @@ paths:
       tags:
       - Login
       summary: 'Send social authorize result'
-      description: 'Send social authorize result via JS PostMessage or WebSocket protocol.<br><br>The result will be sent as a JSON.stringify object with the following structure: `{"event":"EVENT_NAME", "token":{}}` where the name of the event can be `oauthCompletedSuccessfully` or `oauthCompletedWithError`, and the token upon successful authentication contains a JWTToken object.'
+      description: 'Send social authorize result via JS PostMessage or WebSocket protocol.<br><br>The result will be sent as a JSON serialized object with the following structure: `{"event":"EVENT_NAME", "token":{}}` where the name of the event can be `oauthCompletedSuccessfully` or `oauthCompletedWithError`, and the token upon successful authentication contains a JWTToken object.'
       parameters:
         - name: client_id
           in: query
@@ -458,7 +458,7 @@ paths:
           schema:
             type: string
           description: 'One-Time Token'
-        - name: wsUrl
+        - name: ws_url
           in: query
           required: false
           schema:
@@ -466,12 +466,7 @@ paths:
           description: 'If you want to receive an answer via WebSocket, set the value of this parameter as the address of connection to your WebSocket server, for example: `wss://127.0.0.1:123`. The parameter must be encoded with the encodeURIComponent, for example `wss%3A%2F%2F127.0.0.1%3A123`'
       responses:
         '200':
-          description: Bad Request
-          content:
-            plain/text:
-              schema:
-                type: string
-                example: pong
+          description: HTML page with a client WebSocket or PostMessage
       operationId: authorizeResult
       security: []
   /passwordless/start:
@@ -745,7 +740,7 @@ components:
           format: int32
           example: 3600
           description: UNIX timestamp
-        id_token:
+        refresh_token:
           type: string
           description: Refresh token
           example: oDnPKc1a...vWE36Lh
