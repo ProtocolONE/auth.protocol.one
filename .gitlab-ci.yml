@@ -37,7 +37,7 @@ deploy_production:
       -e "CI_ENVIRONMENT_NAME=$CI_ENVIRONMENT_NAME"
       -e "CI_REGISTRY=$CI_REGISTRY"
       -e "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE"
-      -e "NGX_IMAGE=`if [ -f Dockerfile.nginx ]; then echo $CI_REGISTRY_IMAGE ; else echo "nginx"; fi`
+      -e NGX_IMAGE=`if [ -f Dockerfile.nginx ]; then echo $CI_REGISTRY_IMAGE ; else echo nginx; fi`
       -e "CI_PROJECT_NAMESPACE=$CI_PROJECT_NAMESPACE"
       -e "CI_PROJECT_NAME=$CI_PROJECT_NAME"
       -e "CI_COMMIT_REF_SLUG=$CI_COMMIT_REF_SLUG"
