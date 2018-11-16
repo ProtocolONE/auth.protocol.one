@@ -37,6 +37,7 @@ deploy_production:
       -e "CI_ENVIRONMENT_NAME=$CI_ENVIRONMENT_NAME"
       -e "CI_REGISTRY=$CI_REGISTRY"
       -e "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE"
+      -e "NGX_IMAGE=`if [ -f Dockerfile.nginx ]; then echo $CI_REGISTRY_IMAGE ; else echo "nginx"; fi`
       -e "CI_PROJECT_NAMESPACE=$CI_PROJECT_NAMESPACE"
       -e "CI_PROJECT_NAME=$CI_PROJECT_NAME"
       -e "CI_COMMIT_REF_SLUG=$CI_COMMIT_REF_SLUG"
@@ -53,7 +54,7 @@ deploy_production:
       helm upgrade --install $P1_PROJECT .helm
         --set backend.image=$CI_REGISTRY_IMAGE
         --set backend.imageTag=$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
-        --set frontend.image=$CI_REGISTRY_IMAGE
+        --set frontend.image=$NGX_IMAGE
         --set frontend.imageTag="$CI_COMMIT_REF_SLUG"-static.$CI_PIPELINE_ID
         --wait
         --debug
