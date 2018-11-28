@@ -16,7 +16,7 @@ spec:
     email: {{ .Values.certIssuer.email }}
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: {{ .Release.Name }}-ssl-secret
+      name: {{ .Release.Name }}-acme-secret
     # Enable the HTTP-01 challenge provider
     http01: {}
 {{- end }}
